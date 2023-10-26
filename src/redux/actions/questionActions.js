@@ -1,9 +1,3 @@
-export const resetQuestions = () => {
-  return {
-    type: "RESET_QUESTIONS",
-  };
-};
-
 export const nextQuestion = () => {
   return {
     type: "NEXT_QUESTION",
@@ -25,7 +19,6 @@ export const resetTotalPoints = () => {
 
 export const countPoints = () => ({
   type: "COUNT_POINTS",
-  points: 10,
 });
 
 export const correctAnswer = (answer) => ({

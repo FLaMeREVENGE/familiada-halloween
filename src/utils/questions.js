@@ -2,7 +2,7 @@ const questions = [
   {
     question: "Podaj zwierzęta domowe",
     answers: ["Kot", "Pies", "Chomik", "Królik", "Rybki", "Żółw", "Szynszyla"],
-    teamAnswers: [],
+    correctAnswers: [],
     wrongAnswers: [],
   },
   {
@@ -19,106 +19,6 @@ const questions = [
     ],
     teamAnswers: [],
     wrongAnswers: [],
-  },
-  {
-    question: "Najpopularniejsze marki napojów słodko-gazowanych",
-    answers: [
-      "Coca-Cola",
-      "Pepsi",
-      "Fanta",
-      "Sprite",
-      "Dr Pepper",
-      "Mountain Dew",
-      "7UP",
-      "Mirinda",
-    ],
-    teamAnswers: [],
-    wrongAnswers: [],
-  },
-  {
-    question: "Podaj kategorie produktów spożywczych",
-    answers: [
-      "Nabiał",
-      "Mięso",
-      "Warzywa",
-      "Owoce",
-      "Pieczywo",
-      "Słodycze",
-      "Napoje",
-      "Mrożonki",
-      "Przetwory",
-      "Kasza",
-    ],
-    teamAnswers: [],
-    wrongAnswers: []
-  },
-  {
-    question: "Podaj kraje europejskie",
-    answers: [
-      "Francja",
-      "Niemcy",
-      "Włochy",
-      "Hiszpania",
-      "Wielka Brytania",
-      "Polska",
-      "Holandia",
-      "Szwecja",
-      "Norwegia",
-      "Grecja",
-    ],
-    teamAnswers: [],
-    wrongAnswers: []
-  },
-  {
-    question: "Podaj gatunki filmowe",
-    answers: [
-      "Dramat",
-      "Komedia",
-      "Horror",
-      "Science fiction",
-      "Fantasy",
-      "Akcja",
-      "Romans",
-      "Thriller",
-      "Animacja",
-      "Dokumentalny",
-    ],
-    teamAnswers: [],
-    wrongAnswers: []
-  },
-  {
-    question: "Podaj postacie z baśni i legend",
-    answers: [
-      "Król Artur",
-      "Czerwony Kapturek",
-      "Kopciuszek",
-      "Księżniczka Śnieżka",
-      "Myszka Miki",
-      "Złota Rączka",
-      "Zorro",
-      "Robin Hood",
-      "Piotruś Pan",
-      "Herkules",
-    ],
-    teamAnswers: [],
-    wrongAnswers: []
-  },
-  {
-    question: "Podaj stolice państw świata",
-    answers: [
-      "Warszawa",
-      "Paryż",
-      "Berlin",
-      "Londyn",
-      "Rzym",
-      "Madryt",
-      "Ateny",
-      "Oslo",
-      "Tokio",
-      "Nowy Jork",
-    ],
-    teamAnswers: [],
-    wrongAnswers: []
   },
 ];
 

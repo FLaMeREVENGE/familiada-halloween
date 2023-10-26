@@ -17,7 +17,7 @@ const questions = [
       "Artemida",
       "Hermes",
     ],
-    teamAnswers: [],
+    correctAnswers: [],
     wrongAnswers: [],
   },
 ];

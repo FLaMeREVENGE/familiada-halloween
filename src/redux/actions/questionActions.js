@@ -11,15 +11,15 @@ export const transferPoints = (selectedTeam, pointsToTransfer) => {
   };
 };
 
+export const resetWrongAnswers = () => ({
+  type: "RESET_WRONG_ANSWERS",
+});
+
 export const resetTotalPoints = () => {
   return {
     type: "RESET_TOTAL_POINTS",
   };
 };
-
-export const countPoints = () => ({
-  type: "COUNT_POINTS",
-});
 
 export const correctAnswer = (answer) => ({
   type: "CORRECT_ANSWER",

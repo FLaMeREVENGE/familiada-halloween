@@ -50,7 +50,7 @@ export default function Game() {
   useEffect(() => {
     const keyPressHandler = (event) => {
       handleKeyPress(event, dispatch, handlers);
-    };    
+    };
 
     window.addEventListener("keypress", keyPressHandler);
 
@@ -87,7 +87,7 @@ export default function Game() {
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
-    const sanitizedInputValue = inputValue.replace(/[0-9]/g, '');
+    const sanitizedInputValue = inputValue.replace(/[0-9]/g, "");
     const words = sanitizedInputValue.split(" ");
     const capitalizedWords = words.map((word) => {
       return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
@@ -95,7 +95,7 @@ export default function Game() {
     const capitalizedAnswer = capitalizedWords.join(" ");
     setUserAnswer(capitalizedAnswer);
   };
-  
+
   const handleNextQuestion = () => {
     dispatch(nextQuestion());
     dispatch(nextQuestion());
@@ -141,6 +141,9 @@ export default function Game() {
       <Title />
       <div className="familiada__question">{question}</div>
       <div className="familiada__game">
+        {wrongAnswers.length > 0 ? null : (
+          <div className="familiada__game_error_substytut" />
+        )}
         <div className="familiada__game_error">
           {wrongAnswers.slice(0, 4).map((_, index) => (
             <img
@@ -179,7 +182,7 @@ export default function Game() {
       </div>
       <div className="familiada__game_total">
         <div className="familiada__game_total_points">SUMA: {totalPoints}</div>
-  
+
         <div
           className="familiada__game_total_send"
           onClick={() => handleTransferPoints()}
@@ -206,45 +209,57 @@ export default function Game() {
         <div className="familiada__answer_button">Odpowiedz</div>
       </div>
       <div className="familiada__players">
-      <div className="familiada__players">
-      <img src="https://www.pngarts.com/files/17/Morcego-Halloween-PNG-Pic-HQ.png"
-      className="familiada__players_avatar" />
-        <div
-          className={`familiada__players_name ${
-            selectedTeamID === "team1" ? "familiada__players_name_selected" : ""
-          }`}
-          onClick={() => handleSelectTeam("team1")}
-        >
-          Agata i Karol: {team1Score}
+        <div className="familiada__players_div">
+          <img
+            src="https://www.pngarts.com/files/17/Morcego-Halloween-PNG-Pic-HQ.png"
+            className="familiada__players_avatar"
+          />
+          <div
+            className={`familiada__players_name ${
+              selectedTeamID === "team1"
+                ? "familiada__players_name_selected"
+                : ""
+            }`}
+            onClick={() => handleSelectTeam("team1")}
+          >
+            Agata i Karol: {team1Score}
+          </div>
         </div>
+        <div className="familiada__players_div">
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/012/658/583/original/halloween-ghost-spooky-ghost-free-png.png"
+            className="familiada__players_avatar"
+          />
+          <div
+            className={`familiada__players_name ${
+              selectedTeamID === "team2"
+                ? "familiada__players_name_selected"
+                : ""
+            }`}
+            onClick={() => handleSelectTeam("team2")}
+          >
+            Klaudia i Darek: {team2Score}
+          </div>
         </div>
-        <div className="familiada__players">
-        <img src="https://static.vecteezy.com/system/resources/previews/012/658/583/original/halloween-ghost-spooky-ghost-free-png.png"
-        className="familiada__players_avatar" />
-        <div
-          className={`familiada__players_name ${
-            selectedTeamID === "team2" ? "familiada__players_name_selected" : ""
-          }`}
-          onClick={() => handleSelectTeam("team2")}
-        >
-          Klaudia i Darek: {team2Score}
-        </div>
-        </div>
-        <div className="familiada__players">
-        <img src="https://assets.stickpng.com/images/5f468cb297b4fe000462da2c.png"
-        className="familiada__players_avatar" />
-        <div
-          className={`familiada__players_name ${
-            selectedTeamID === "team3" ? "familiada__players_name_selected" : ""
-          }`}
-          onClick={() => handleSelectTeam("team3")}
-        >
-          Monika i Dawid: {team3Score}
-        </div>
+        <div className="familiada__players_div">
+          <img
+            src="https://assets.stickpng.com/images/5f468cb297b4fe000462da2c.png"
+            className="familiada__players_avatar"
+          />
+          <div
+            className={`familiada__players_name ${
+              selectedTeamID === "team3"
+                ? "familiada__players_name_selected"
+                : ""
+            }`}
+            onClick={() => handleSelectTeam("team3")}
+          >
+            Monika i Dawid: {team3Score}
+          </div>
         </div>
       </div>
       <div className="familiada__actions">
-      <div
+        <div
           className="familiada__game_total_send"
           onClick={() => handleResetWrongAnswers()}
         >
@@ -253,7 +268,10 @@ export default function Game() {
         <div className="familiada__game_total_send" onClick={handleResetGame}>
           Reset
         </div>
-        <div className="familiada__game_total_send" onClick={handleNextQuestion}>
+        <div
+          className="familiada__game_total_send"
+          onClick={handleNextQuestion}
+        >
           Nastepne pytanie
         </div>
       </div>

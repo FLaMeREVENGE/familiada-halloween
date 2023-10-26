@@ -1,5 +1,5 @@
 :root {
-    color: #d7e600;
+    color: orange;
     background-image: url('https://cdn.suwalls.com/wallpapers/holidays/dark-halloween-pattern-49196-3840x2160.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -39,7 +39,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: #d7e600;
 }
 
 .familiada__title{
@@ -56,12 +55,13 @@
     justify-content: start;
     align-items: center;
     font-size: 40px;
-    color: black;
-    background-color: #d7e600;
+    color: rgb(224, 196, 175);
+    background: linear-gradient(97deg, rgba(0,0,0,1) 0%, rgba(255,128,41,1) 100%);
     padding: 10px;
     font-family: 'Vexler Slip';
     padding-left: 30px;
     letter-spacing: 2px;
+    border: orange solid;
 }
 
 .familiada__game{
@@ -73,6 +73,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+.familiada__game_error_substytut{
+    width: 90px;
 }
 
 .familiada__game_error{
@@ -107,7 +111,6 @@
 
 .familiada__game_table_list{
     display: flex;
-    padding-left: 40px;
 }
 
 .familiada__game_table_answer_number{
@@ -127,30 +130,41 @@
     display: flex;
     background-color: black;
     border-bottom: 2px solid ;
+    border: orange solid;
 }
 
 .familiada__answer_input {
-    background: #d7e600;
-    border: #d7e600;
+    background: rgba(75,42,20,1);
+    border: orange solid;
     width: 20%;
     padding: 40px;
     font-size: 30px;
     font-family: 'BPdots';
+    color: orange;
   }
 
   .familiada__answer_button{
     display: flex;
     align-items: center;
-    color: #d7e600;
-    background: #454a00;
+    color: orange;
+    background: rgba(75,42,20,1);
     padding: 20px;
     font-size: 30px;
     text-align: end;
-    border: #d7e600 solid 2px;
+    border: orange solid 2px;
     font-family: 'Starting Machine';
   }
 
   .familiada__players{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 10px;
+    border: orange solid 2px;
+  }
+
+  .familiada__players_div{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -171,18 +185,18 @@
 .familiada__players_name_selected{
     font-size: 30px;
     padding: 20px;
-    color: red;
+    color: rgb(255, 0, 0);
 }
 
 .familiada__actions{
     display: flex;
     align-items: center;
-    color: #d7e600;
-    background: #454a00;
+    color: orange;
+    background: rgba(75,42,20,1);
     padding: 20px;
     font-size: 30px;
     text-align: end;
-    border: #d7e600 solid 2px;
+    border: orange solid 2px;
     justify-content: space-between;
 }
 
@@ -198,7 +212,7 @@
 
 .familiada__game_total_points{
     padding: 20px;
-    border: #d7e600 solid 2px;
+    border: orange solid 2px;
     font-size: 30px;
     font-family: 'BPdots';
     padding-top: 30px;
@@ -207,12 +221,12 @@
 .familiada__game_total_send{
     display: flex;
     align-items: center;
-    color: #d7e600;
-    background: #454a00;
+    color: orange;
+    background: rgba(75,42,20,1);
     padding: 20px;
     font-size: 30px;
     text-align: end;
-    border: #d7e600 solid 2px;
+    border: orange solid 2px;
     font-family: 'Starting Machine';
 
 }

@@ -1,0 +1,174 @@
+:root {
+    color: #d7e600;
+    background-color: black;
+}
+
+@font-face {
+    font-family: 'Starting Machine';
+    src: url('StartingMachine.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+.familiada{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #d7e600;
+    background-color: black;
+}
+
+.familiada__title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.familiada__question{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 40px;
+    color: black;
+    background-color: #d7e600;
+    padding: 10px;
+}
+
+.familiada__game{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border: 2px solid ;
+}
+
+.familiada__game_error{
+    padding: 20px;
+    flex-direction: column;
+    display: flex;
+}
+
+.familiada__game_error_symbol{
+    height: 90px;;
+}
+
+.familiada__game_error_team{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-left: auto;
+}
+
+.familiada__game_error_team_symbol_hidden{
+    display: none;
+}
+
+.hidden{
+    display: none;
+}
+
+.familiada__game_error_team_symbol{
+    height: 320px;
+}
+
+.familiada__game_table{
+    padding: 20px;
+}
+
+.familiada__game_table_list{
+    display: flex;
+    padding-left: 40px;
+}
+
+.familiada__game_table_answer_number{
+    font-size: 30px;
+    font-family: 'Starting Machine';
+    padding: 10px;
+}
+
+.familiada__game_table_answer_text{
+    font-size: 30px;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.familiada__answer{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.familiada__answer_input {
+    background: #d7e600;
+    border: #d7e600;
+    width: 20%;
+    padding: 40px;
+    font-size: 30px;
+  }
+
+  .familiada__answer_button{
+    display: flex;
+    align-items: center;
+    color: #d7e600;
+    background: #454a00;
+    padding: 20px;
+    font-size: 30px;
+    text-align: end;
+    border: #d7e600 solid 2px;
+  }
+
+  .familiada__players{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+.familiada__players_name{
+    font-size: 30px;
+    padding: 20px;
+}
+
+.familiada__players_name_selected{
+    font-size: 30px;
+    padding: 20px;
+    background: #8a0000;
+    color: white;
+}
+
+.familiada__actions{
+    display: flex;
+    align-items: center;
+    color: #d7e600;
+    background: #454a00;
+    padding: 20px;
+    font-size: 30px;
+    text-align: end;
+    border: #d7e600 solid 2px;
+}
+
+.familiada__actions_next{
+    margin-left: auto;
+}
+
+.familiada__game_total{
+    display: flex;
+    justify-content: space-between;
+}
+
+.familiada__game_total_points{
+    padding: 20px;
+    border: #d7e600 solid 2px;
+    font-size: 30px;
+}
+
+.familiada__game_total_send{
+    display: flex;
+    align-items: center;
+    color: #d7e600;
+    background: #454a00;
+    padding: 20px;
+    font-size: 30px;
+    text-align: end;
+    border: #d7e600 solid 2px;
+}
+  

@@ -1,7 +1,7 @@
 const questions = [
   {
     question: "Podaj zwierzęta domowe",
-    answers: ["Kot", "Pies", "Chomik", "Królik", "Rybki", "Żółw", "Szynszyla"],
+    answers: ["Kot", "Pies", "Chomik", "Królik", "Rybki", "Żółw", "Szynszyla", "Szynszyla", "Szynszyla", "Szynszyla"],
     correctAnswers: [],
     wrongAnswers: [],
   },

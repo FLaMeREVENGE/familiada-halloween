@@ -133,6 +133,7 @@ export default function Game() {
     handleNextQuestion,
     setShowAnswers,
     handleTransferPoints,
+    handleResetWrongAnswers,
   };
 
   return (
@@ -178,17 +179,12 @@ export default function Game() {
       </div>
       <div className="familiada__game_total">
         <div className="familiada__game_total_points">SUMA: {totalPoints}</div>
-        <div
-          className="familiada__game_total_send"
-          onClick={() => handleResetWrongAnswers()}
-        >
-          Reset złych odpowiedzi
-        </div>
+  
         <div
           className="familiada__game_total_send"
           onClick={() => handleTransferPoints()}
         >
-          Przekaz punkty
+          Przekaz punkty {selectedTeamID}
         </div>
       </div>
       <div className="familiada__answer">
@@ -210,6 +206,9 @@ export default function Game() {
         <div className="familiada__answer_button">Odpowiedz</div>
       </div>
       <div className="familiada__players">
+      <div className="familiada__players">
+      <img src="https://www.pngarts.com/files/17/Morcego-Halloween-PNG-Pic-HQ.png"
+      className="familiada__players_avatar" />
         <div
           className={`familiada__players_name ${
             selectedTeamID === "team1" ? "familiada__players_name_selected" : ""
@@ -218,6 +217,10 @@ export default function Game() {
         >
           Agata i Karol: {team1Score}
         </div>
+        </div>
+        <div className="familiada__players">
+        <img src="https://static.vecteezy.com/system/resources/previews/012/658/583/original/halloween-ghost-spooky-ghost-free-png.png"
+        className="familiada__players_avatar" />
         <div
           className={`familiada__players_name ${
             selectedTeamID === "team2" ? "familiada__players_name_selected" : ""
@@ -226,6 +229,10 @@ export default function Game() {
         >
           Klaudia i Darek: {team2Score}
         </div>
+        </div>
+        <div className="familiada__players">
+        <img src="https://assets.stickpng.com/images/5f468cb297b4fe000462da2c.png"
+        className="familiada__players_avatar" />
         <div
           className={`familiada__players_name ${
             selectedTeamID === "team3" ? "familiada__players_name_selected" : ""
@@ -234,13 +241,20 @@ export default function Game() {
         >
           Monika i Dawid: {team3Score}
         </div>
+        </div>
       </div>
       <div className="familiada__actions">
-        <div className="familiada__actions_next" onClick={handleResetGame}>
+      <div
+          className="familiada__game_total_send"
+          onClick={() => handleResetWrongAnswers()}
+        >
+          Reset zlych odpowiedzi
+        </div>
+        <div className="familiada__game_total_send" onClick={handleResetGame}>
           Reset
         </div>
-        <div className="familiada__actions_next" onClick={handleNextQuestion}>
-          Następne pytanie
+        <div className="familiada__game_total_send" onClick={handleNextQuestion}>
+          Nastepne pytanie
         </div>
       </div>
     </div>

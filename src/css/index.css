@@ -1,7 +1,13 @@
 :root {
     color: #d7e600;
-    background-color: black;
+    background-image: url('https://cdn.suwalls.com/wallpapers/holidays/dark-halloween-pattern-49196-3840x2160.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 80px;
+    margin-top: -60px;
 }
+
 
 @font-face {
     font-family: 'Starting Machine';
@@ -11,18 +17,38 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'BPdots';
+    src: url('BPdots.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vexler Slip';
+    src: url('VexlerSlip-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
 .familiada{
     display: flex;
     flex-direction: column;
     justify-content: center;
     color: #d7e600;
-    background-color: black;
 }
 
 .familiada__title{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Starting Machine';
+    padding: 20px;
+    font-size: 130px;
 }
 
 .familiada__question{
@@ -33,6 +59,9 @@
     color: black;
     background-color: #d7e600;
     padding: 10px;
+    font-family: 'Vexler Slip';
+    padding-left: 30px;
+    letter-spacing: 2px;
 }
 
 .familiada__game{
@@ -40,6 +69,10 @@
     justify-content: start;
     align-items: center;
     border: 2px solid ;
+    background-image: url('https://i.pinimg.com/originals/64/cc/88/64cc884a74ccb65145f66ac81b177e07.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .familiada__game_error{
@@ -59,20 +92,17 @@
     margin-left: auto;
 }
 
-.familiada__game_error_team_symbol_hidden{
-    display: none;
-}
-
-.hidden{
-    display: none;
-}
-
 .familiada__game_error_team_symbol{
     height: 320px;
 }
 
 .familiada__game_table{
     padding: 20px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
 }
 
 .familiada__game_table_list{
@@ -90,11 +120,13 @@
     font-size: 30px;
     padding-top: 5px;
     padding-left: 10px;
+    font-family: 'BPdots';
 }
 
 .familiada__answer{
     display: flex;
-    margin-bottom: 20px;
+    background-color: black;
+    border-bottom: 2px solid ;
 }
 
 .familiada__answer_input {
@@ -103,6 +135,7 @@
     width: 20%;
     padding: 40px;
     font-size: 30px;
+    font-family: 'BPdots';
   }
 
   .familiada__answer_button{
@@ -114,25 +147,31 @@
     font-size: 30px;
     text-align: end;
     border: #d7e600 solid 2px;
+    font-family: 'Starting Machine';
   }
 
   .familiada__players{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    background-color: black;
+    padding: 10px;
+  }
+
+  .familiada__players_avatar{
+    height: 50px;
   }
 
 .familiada__players_name{
     font-size: 30px;
     padding: 20px;
+    font-family: 'Starting Machine';
 }
 
 .familiada__players_name_selected{
     font-size: 30px;
     padding: 20px;
-    background: #8a0000;
-    color: white;
+    color: red;
 }
 
 .familiada__actions{
@@ -144,6 +183,7 @@
     font-size: 30px;
     text-align: end;
     border: #d7e600 solid 2px;
+    justify-content: space-between;
 }
 
 .familiada__actions_next{
@@ -153,12 +193,15 @@
 .familiada__game_total{
     display: flex;
     justify-content: space-between;
+    background-color: black;
 }
 
 .familiada__game_total_points{
     padding: 20px;
     border: #d7e600 solid 2px;
     font-size: 30px;
+    font-family: 'BPdots';
+    padding-top: 30px;
 }
 
 .familiada__game_total_send{
@@ -170,5 +213,7 @@
     font-size: 30px;
     text-align: end;
     border: #d7e600 solid 2px;
+    font-family: 'Starting Machine';
+
 }
   

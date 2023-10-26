@@ -12,6 +12,7 @@ import {
 } from "../redux/actions/questionActions";
 import Title from "./Title";
 import { handleKeyPress } from "../hooks/keyPressHandlers";
+import Modal from "./Modal";
 
 export default function Game() {
   const dispatch = useDispatch();
@@ -31,9 +32,17 @@ export default function Game() {
   const wrongAnswers = useSelector(
     (state) => state.question.currentRound.wrongAnswers
   );
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswers, setShowAnswers] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     if (correctAnswers.length > 0) {
@@ -100,6 +109,7 @@ export default function Game() {
     dispatch(nextQuestion());
     dispatch(nextQuestion());
     setShowAnswers(false);
+    openModal()
   };
 
   const handleResetGame = () => {
@@ -139,7 +149,14 @@ export default function Game() {
   return (
     <div className="familiada">
       <Title />
-      <div className="familiada__question">{question}</div>
+      <div className="familiada__question">
+        {question}
+        <img
+          src="https://png.pngtree.com/png-clipart/20220916/ourmid/pngtree-mushroom-zombie-cartoon-png-image_6176780.png"
+          className="familiada__players_avatar"
+          onClick={openModal}
+        />
+      </div>
       <div className="familiada__game">
         {wrongAnswers.length > 0 ? null : (
           <div className="familiada__game_error_substytut" />
@@ -275,6 +292,7 @@ export default function Game() {
           Nastepne pytanie
         </div>
       </div>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }

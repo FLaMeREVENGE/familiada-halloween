@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Title = () => {
-  return (
-    <div className="familiada__title">
-FAMILIDA HALLOWEEN
-  </div>
-  )
-}
+  return <div className="familiada__title">FAMILIDA HALLOWEEN</div>;
+};
 
-export default Title
+export default Title;

@@ -35,13 +35,13 @@
 
 
 
-.familiada{
+.familiada {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.familiada__title{
+.familiada__title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,57 +50,59 @@
     font-size: 130px;
 }
 
-.familiada__question{
+.familiada__question {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     font-size: 40px;
     color: rgb(224, 196, 175);
-    background: linear-gradient(97deg, rgba(0,0,0,1) 0%, rgba(255,128,41,1) 100%);
+    background: linear-gradient(97deg, rgba(0, 0, 0, 1) 0%, rgba(255, 128, 41, 1) 100%);
     padding: 10px;
     font-family: 'Vexler Slip';
     padding-left: 30px;
     letter-spacing: 2px;
     border: orange solid;
+
 }
 
-.familiada__game{
+.familiada__game {
     display: flex;
     justify-content: start;
     align-items: center;
-    border: 2px solid ;
+    border: 2px solid;
     background-image: url('https://i.pinimg.com/originals/64/cc/88/64cc884a74ccb65145f66ac81b177e07.gif');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-.familiada__game_error_substytut{
+.familiada__game_error_substytut {
     width: 90px;
 }
 
-.familiada__game_error{
+.familiada__game_error {
     padding: 20px;
     flex-direction: column;
     display: flex;
 }
 
-.familiada__game_error_symbol{
-    height: 90px;;
+.familiada__game_error_symbol {
+    height: 90px;
+    ;
 }
 
-.familiada__game_error_team{
+.familiada__game_error_team {
     display: flex;
     justify-content: end;
     align-items: center;
     margin-left: auto;
 }
 
-.familiada__game_error_team_symbol{
+.familiada__game_error_team_symbol {
     height: 320px;
 }
 
-.familiada__game_table{
+.familiada__game_table {
     padding: 20px;
     height: 500px;
     display: flex;
@@ -109,90 +111,89 @@
 
 }
 
-.familiada__game_table_list{
+.familiada__game_table_list {
     display: flex;
 }
 
-.familiada__game_table_answer_number{
+.familiada__game_table_answer_number {
     font-size: 30px;
     font-family: 'Starting Machine';
     padding: 10px;
 }
 
-.familiada__game_table_answer_text{
+.familiada__game_table_answer_text {
     font-size: 30px;
-    padding-top: 5px;
-    padding-left: 10px;
+    padding-top: 15px;
     font-family: 'BPdots';
 }
 
-.familiada__answer{
+.familiada__answer {
     display: flex;
     background-color: black;
-    border-bottom: 2px solid ;
+    border-bottom: 2px solid;
     border: orange solid;
 }
 
 .familiada__answer_input {
-    background: rgba(75,42,20,1);
+    background: rgba(75, 42, 20, 1);
     border: orange solid;
     width: 20%;
     padding: 40px;
     font-size: 30px;
     font-family: 'BPdots';
     color: orange;
-  }
+}
 
-  .familiada__answer_button{
+.familiada__answer_button {
     display: flex;
     align-items: center;
     color: orange;
-    background: rgba(75,42,20,1);
+    background: rgba(75, 42, 20, 1);
     padding: 20px;
     font-size: 30px;
     text-align: end;
     border: orange solid 2px;
     font-family: 'Starting Machine';
-  }
+}
 
-  .familiada__players{
+.familiada__players {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: black;
     padding: 10px;
     border: orange solid 2px;
-  }
+}
 
-  .familiada__players_div{
+.familiada__players_div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: black;
     padding: 10px;
-  }
+}
 
-  .familiada__players_avatar{
+.familiada__players_avatar {
     height: 50px;
-  }
+}
 
-.familiada__players_name{
+.familiada__players_name {
     font-size: 30px;
     padding: 20px;
     font-family: 'Starting Machine';
 }
 
-.familiada__players_name_selected{
+.familiada__players_name_selected {
     font-size: 30px;
     padding: 20px;
     color: rgb(255, 0, 0);
 }
 
-.familiada__actions{
+.familiada__actions {
     display: flex;
     align-items: center;
     color: orange;
-    background: rgba(75,42,20,1);
+    background: rgba(75, 42, 20, 1);
     padding: 20px;
     font-size: 30px;
     text-align: end;
@@ -200,17 +201,17 @@
     justify-content: space-between;
 }
 
-.familiada__actions_next{
+.familiada__actions_next {
     margin-left: auto;
 }
 
-.familiada__game_total{
+.familiada__game_total {
     display: flex;
     justify-content: space-between;
     background-color: black;
 }
 
-.familiada__game_total_points{
+.familiada__game_total_points {
     padding: 20px;
     border: orange solid 2px;
     font-size: 30px;
@@ -218,11 +219,11 @@
     padding-top: 30px;
 }
 
-.familiada__game_total_send{
+.familiada__game_total_send {
     display: flex;
     align-items: center;
     color: orange;
-    background: rgba(75,42,20,1);
+    background: rgba(75, 42, 20, 1);
     padding: 20px;
     font-size: 30px;
     text-align: end;
@@ -230,4 +231,99 @@
     font-family: 'Starting Machine';
 
 }
-  
+
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: linear-gradient(225deg, rgba(70, 36, 13, 1) 0%, rgba(255, 128, 41, 1) 100%);
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: relative;
+    width: 80%;
+    height: 60%;
+    max-width: 90%;
+    text-align: center;
+    border: orange solid;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+    outline: none;
+}
+
+.modal-content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_avatar {
+    height: 300px;
+    margin-top: 20px;
+    padding: 40px;
+    width: 400px;
+    opacity: 0.2;
+}
+
+.modal_avatar_active {
+    height: 300px;
+    margin-top: 20px;
+    padding: 40px;
+    width: 400px;
+    opacity: 1;
+}
+
+.avatars{
+    display: flex;
+}
+
+.avatar-number{
+    font-size: 80px;
+    font-family: 'Starting Machine';
+    background-color: rgba(70, 36, 13, 1);
+    padding: 10px;
+    border: orange solid;
+    margin-bottom: 20px;
+}
+
+.avatar-number_first{
+    font-size: 80px;
+    font-family: 'Starting Machine';
+    background-color: rgb(0, 116, 12);
+    padding: 10px;
+    border: rgb(17, 255, 0) solid;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.modal_timer{
+    font-size: 120px;
+    font-family: 'Starting Machine';
+    background-color: rgb(70, 13, 13);
+    padding: 20px;
+    border-radius: 10px;
+    border: red solid;
+    margin-top: 50px;
+    color: white;
+}

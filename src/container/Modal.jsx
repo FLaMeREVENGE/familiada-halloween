@@ -11,6 +11,7 @@ const Modal = ({ isOpen, onClose }) => {
   const [timerStarted, setTimerStarted] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [remainingShowAnswerTime, setRemainingShowAnswerTime] = useState(0);
+  const state = useSelector((state) => state);
 
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
@@ -51,6 +52,7 @@ const Modal = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
+      setShowQuestion(false);
     } else {
       setIsAvatarActive1(false);
       setIsAvatarActive2(false);
@@ -129,7 +131,7 @@ const Modal = ({ isOpen, onClose }) => {
               setShowQuestion(false);
             }}
           >
-            Pokaz Pytanie
+            Pytanie {state.question.rounds.indexOf(state.question.currentRound) + 1}
           </button>
         )}
         {showQuestion ? (

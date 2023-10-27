@@ -112,6 +112,10 @@ export default function Game() {
   };
 
   const handleInputChange = (event) => {
+    if (isModalOpen) {
+      return;
+    }
+  
     const inputValue = event.target.value;
     const sanitizedInputValue = inputValue.replace(/[0-9]/g, "");
     const words = sanitizedInputValue.split(" ");

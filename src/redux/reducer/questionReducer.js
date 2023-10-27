@@ -5,145 +5,88 @@ const initialState = {
   team2: 0,
   team3: 0,
   rounds: questions,
-  currentRound: questions[0],
   selectedTeam: null,
   totalPoints: 0,
-  // currentRound: questions[0],
+  currentRound: questions[0],
+  correctAnswers: [],
+  wrongAnswers: [],
 };
 
 const MAX_WRONG_ANSWERS = 5;
 
 const questionReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SELECTED_TEAM":
+    case "RESET_CORRECT_ANSWERS":
       return {
         ...state,
-        selectedTeam: action.payload,
+        correctAnswers: [],
       };
+    case "RESET_WRONG_ANSWERS":
+      return {
+        ...state,
+        wrongAnswers: [],
+      };
+    case "CORRECT_ANSWER":
+      const { payload: answer } = action;
+      const currentRound = state.currentRound;
+      const correctAnswerIndex = currentRound.answers.indexOf(answer);
+
+      if (correctAnswerIndex >= 0) {
+        const pointsEarned = 100 - 10 * correctAnswerIndex;
+
+        return {
+          ...state,
+          correctAnswers: [...state.correctAnswers, answer],
+          totalPoints: state.totalPoints + pointsEarned,
+        };
+      }
+      return state;
+    case "UNCORRECT_ANSWER":
+      const { payload: incorrectAnswer } = action;
+      const updatedWrongAnswers = [...state.wrongAnswers, incorrectAnswer];
+
+      if (updatedWrongAnswers.length > MAX_WRONG_ANSWERS) {
+        updatedWrongAnswers.shift();
+      }
+
+      return {
+        ...state,
+        wrongAnswers: updatedWrongAnswers,
+      };
+
     case "TRANSFER_POINTS":
       const { selectedTeam, pointsToTransfer } = action.payload;
-      const selectedTeamPoints = state[selectedTeam];
-      const updatedTeamPoints = selectedTeamPoints + pointsToTransfer;
+      const currentTeamScore = state[selectedTeam];
       return {
         ...state,
-        [selectedTeam]: updatedTeamPoints,
+        [selectedTeam]: currentTeamScore + pointsToTransfer,
+      };
+    case "NEXT_QUESTION":
+      const currentIndex = state.rounds.indexOf(state.currentRound);
+      const nextIndex = currentIndex + 1;
+
+      if (nextIndex < state.rounds.length) {
+        return {
+          ...state,
+          currentRound: state.rounds[nextIndex],
+        };
+      } else {
+        return state;
+      }
+
+    case "SELECTED_TEAM":
+      const { payload: teamID } = action;
+      return {
+        ...state,
+        selectedTeam: teamID,
       };
     case "RESET_TOTAL_POINTS":
       return {
         ...state,
         totalPoints: 0,
       };
-    case "COUNT_POINTS":
-      const currentRoundIndexCountPoints = state.currentRoundIndex;
-      const currentRoundCountPoints =
-        state.rounds[currentRoundIndexCountPoints];
-
-      if (currentRoundCountPoints) {
-        const firstAnswer = currentRoundCountPoints.answers[0];
-
-        const correctAnswerGiven =
-          currentRoundCountPoints.teamAnswers.length > 0 &&
-          currentRoundCountPoints.teamAnswers[0].toLowerCase() ===
-            firstAnswer.toLowerCase();
-
-        if (correctAnswerGiven) {
-          const pointsToAdd = action.points;
-          const updatedTotalPoints = state.totalPoints + pointsToAdd;
-
-          return {
-            ...state,
-            totalPoints: updatedTotalPoints,
-          };
-        }
-      }
-      return state;
-    case "CORRECT_ANSWER":
-      const currentRoundIndexCorrect = state.currentRoundIndex;
-      const currentRoundCorrect = state.rounds[currentRoundIndexCorrect];
-
-      if (currentRoundCorrect) {
-        const lowercaseAnswers = currentRoundCorrect.answers.map((answer) =>
-          answer.toLowerCase()
-        );
-
-        if (lowercaseAnswers.includes(action.payload.toLowerCase())) {
-          const updatedAnswers = [...currentRoundCorrect.teamAnswers];
-          const answerToAdd = action.payload.toLowerCase();
-
-          if (!updatedAnswers.includes(answerToAdd)) {
-            updatedAnswers.push(answerToAdd);
-
-            const answerIndex = lowercaseAnswers.indexOf(answerToAdd);
-            const pointsToAdd = 100 - answerIndex * 10;
-
-            const updatedRoundsCorrect = [...state.rounds];
-            updatedRoundsCorrect[currentRoundIndexCorrect] = {
-              ...currentRoundCorrect,
-              teamAnswers: updatedAnswers,
-            };
-
-            const updatedTotalPoints = state.totalPoints + pointsToAdd;
-
-            return {
-              ...state,
-              rounds: updatedRoundsCorrect,
-              totalPoints: updatedTotalPoints,
-            };
-          }
-        }
-      }
-      return state;
-    case "UNCORRECT_ANSWER":
-      const currentRoundIndexUncorrect = state.currentRoundIndex;
-      const currentRoundUncorrect = state.rounds[currentRoundIndexUncorrect];
-
-      if (currentRoundUncorrect) {
-        const lowercaseAnswers = currentRoundUncorrect.answers.map((answer) =>
-          answer.toLowerCase()
-        );
-
-        if (lowercaseAnswers.includes(action.payload.toLowerCase())) {
-          return {
-            ...state,
-          };
-        }
-
-        let updatedWrongAnswers = [
-          ...currentRoundUncorrect.wrongAnswers,
-          action.payload,
-        ];
-
-        if (updatedWrongAnswers.length > MAX_WRONG_ANSWERS) {
-          updatedWrongAnswers = updatedWrongAnswers.slice(0, MAX_WRONG_ANSWERS);
-        }
-
-        const updatedRoundsUncorrect = [...state.rounds];
-        updatedRoundsUncorrect[currentRoundIndexUncorrect] = {
-          ...currentRoundUncorrect,
-          wrongAnswers: updatedWrongAnswers,
-        };
-
-        return {
-          ...state,
-          rounds: updatedRoundsUncorrect,
-        };
-      }
-      return state;
-    case "RESET_QUESTIONS":
+    case "RESET_GAME":
       return initialState;
-    case "NEXT_QUESTION":
-      const nextRoundIndex = state.currentRoundIndex + 1;
-      if (nextRoundIndex < state.rounds.length) {
-        return {
-          ...state,
-          currentRoundIndex: nextRoundIndex,
-        };
-      } else {
-        return {
-          ...state,
-          currentRoundIndex: 0,
-        };
-      }
     default:
       return state;
   }

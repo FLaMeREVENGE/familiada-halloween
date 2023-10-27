@@ -1,14 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Title = () => {
-  return (
-    <div className="familiada__title">
-    <img
-      src="https://cdw.edu.pl/wp-content/uploads/2017/06/familiada-grafika-blog.png"
-      alt="Familiada"
-    />
-  </div>
-  )
-}
+  return <div className="familiada__title">FAMILIDA HALLOWEEN</div>;
+};
 
-export default Title
+export default Title;

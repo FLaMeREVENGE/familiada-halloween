@@ -1,9 +1,3 @@
-export const resetQuestions = () => {
-  return {
-    type: "RESET_QUESTIONS",
-  };
-};
-
 export const nextQuestion = () => {
   return {
     type: "NEXT_QUESTION",
@@ -17,16 +11,19 @@ export const transferPoints = (selectedTeam, pointsToTransfer) => {
   };
 };
 
+export const resetWrongAnswers = () => ({
+  type: "RESET_WRONG_ANSWERS",
+});
+
+export const resetCorrectAnswers = () => ({
+  type: "RESET_CORRECT_ANSWERS",
+});
+
 export const resetTotalPoints = () => {
   return {
     type: "RESET_TOTAL_POINTS",
   };
 };
-
-export const countPoints = () => ({
-  type: "COUNT_POINTS",
-  points: 10,
-});
 
 export const correctAnswer = (answer) => ({
   type: "CORRECT_ANSWER",

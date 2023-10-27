@@ -3,48 +3,65 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   correctAnswer,
   nextQuestion,
-  resetQuestions,
+  resetCorrectAnswers,
+  resetGame,
   resetTotalPoints,
+  resetWrongAnswers,
   selectedTeam,
   transferPoints,
   uncorrectAnswer,
 } from "../redux/actions/questionActions";
 import Title from "./Title";
-import { useRef } from "react";
 import { handleKeyPress } from "../hooks/keyPressHandlers";
+import Modal from "./Modal";
+import { useRef } from "react";
 
 export default function Game() {
   const dispatch = useDispatch();
   const team1Score = useSelector((state) => state.question.team1);
   const team2Score = useSelector((state) => state.question.team2);
   const team3Score = useSelector((state) => state.question.team3);
-  const rounds = useSelector((state) => state.question.rounds);
+
+  const currentRound = useSelector((state) => state.question.currentRound);
+
   const selectedTeamID = useSelector((state) => state.question.selectedTeam);
   const totalPoints = useSelector((state) => state.question.totalPoints);
-  const wrongAnswers = useSelector(
-    (state) =>
-      state.question.rounds[state.question.currentRoundIndex].wrongAnswers
-  );
-  
-  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
-  const [currentRound, setCurrentRound] = useState({});
+
+  const question = useSelector((state) => state.question.currentRound.question);
+  const answers = useSelector((state) => state.question.currentRound.answers);
+
+  const correctAnswers = useSelector((state) => state.question.correctAnswers);
+  const wrongAnswers = useSelector((state) => state.question.wrongAnswers);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
-  const [errorCount, setErrorCount] = useState(0);
-  const [answerSubmitted, setAnswerSubmitted] = useState(false);
-  const [userAnswers, setUserAnswers] = useState([]);
   const [showAnswers, setShowAnswers] = useState(false);
-  const audioRef = useRef(null);
+
+  const transferPointsButtonRef = useRef(null);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
-    const handlers = {
-      handleSelectTeam,
-      handleNextQuestion,
-      setShowAnswers,
-      handleTransferPoints,
-    };
+    if (correctAnswers.length > 0) {
+      handlePlaySoundCorrect();
+    }
+  }, [correctAnswers]);
 
+  useEffect(() => {
+    if (wrongAnswers.length > 0) {
+      handlePlaySoundError();
+    }
+  }, [wrongAnswers]);
+
+  useEffect(() => {
     const keyPressHandler = (event) => {
-      handleKeyPress(event, handlers);
+      handleKeyPress(event, dispatch, handlers);
     };
 
     window.addEventListener("keypress", keyPressHandler);
@@ -55,151 +72,151 @@ export default function Game() {
   }, []);
 
   useEffect(() => {
-    if (Array.isArray(rounds) && rounds.length > 0) {
-      setCurrentRound(rounds[currentRoundIndex]);
-    }
-  }, [rounds, currentRoundIndex]);
+    const handleKeyPress = (event) => {
+      if (event.key === "5" && transferPointsButtonRef.current) {
+        transferPointsButtonRef.current.click();
+      }
+    };
 
-  useEffect(() => {
-    const storedTeamID = localStorage.getItem("selectedTeamID");
-    if (storedTeamID) {
-      handleSelectTeam(storedTeamID);
-    }
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
   }, []);
-  
-
-  const handleSelectTeam = (teamID) => {
-    dispatch(selectedTeam(teamID));
-    localStorage.setItem("selectedTeamID", teamID);
-  };
 
   const handlePlaySoundError = () => {
-    const sound = new Audio("https://firebasestorage.googleapis.com/v0/b/graminator.appspot.com/o/IMG%2FUTILS%2FX2Download.app%20-%20Z%C5%82a%20odpowiedz%CC%81%20(128%20kbps).mp3?alt=media&token=56940a9b-6ae7-4160-9571-46733ebbf50e");
+    const sound = new Audio(
+      "https://firebasestorage.googleapis.com/v0/b/graminator.appspot.com/o/IMG%2FUTILS%2Ffamilida_error.mp3?alt=media&token=fc38a031-2ff9-43f4-8547-0f44ab043a52"
+    );
     sound.play();
   };
 
   const handlePlaySoundCorrect = () => {
-    const sound = new Audio("https://firebasestorage.googleapis.com/v0/b/graminator.appspot.com/o/IMG%2FUTILS%2FX2Download.app%20-%20Familiada%20poprawna%20odpowiedz%CC%81%20(128%20kbps).mp3?alt=media&token=f2b724ff-acc2-4604-9cfe-a60f1ad0ccbb");
+    const sound = new Audio(
+      "https://firebasestorage.googleapis.com/v0/b/graminator.appspot.com/o/IMG%2FUTILS%2Ffamilida_correct.mp3?alt=media&token=5798c104-e3e6-4b8a-9f7c-8efe88a9839d"
+    );
     sound.play();
   };
 
-  const handleResetGame = () => {
-    dispatch(resetQuestions());
-    setCurrentRoundIndex(0);
-    setUserAnswer("");
-    setErrorCount(0);
-    setAnswerSubmitted(false);
-    setUserAnswers([]);
+  const handleSelectTeam = (teamID) => {
+    dispatch(selectedTeam(teamID));
   };
 
-  const handleNextQuestion = () => {
-    const nextRoundIndex = currentRoundIndex + 1;
-    if (nextRoundIndex < rounds.length) {
-      setCurrentRoundIndex(nextRoundIndex);
-    } else {
-      setCurrentRoundIndex(0);
+  const handleTransferPoints = () => {
+    if (selectedTeamID) {
+      dispatch(transferPoints(selectedTeamID, totalPoints));
+      dispatch(resetTotalPoints());
+      setShowAnswers(true);
     }
+  };
 
-    setUserAnswer("");
-    setErrorCount(0);
-    setAnswerSubmitted(false);
+  const handleInputChange = (event) => {
+    if (isModalOpen) {
+      return;
+    }
+  
+    const inputValue = event.target.value;
+    const sanitizedInputValue = inputValue.replace(/[0-9]/g, "");
+    const words = sanitizedInputValue.split(" ");
+    const firstWord = words.shift(); 
+    const capitalizedFirstWord = firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase();
+    const lowercaseWords = words.map((word) => word.toLowerCase());
+    const finalAnswer = [capitalizedFirstWord, ...lowercaseWords].join(" ");
+    
+    setUserAnswer(finalAnswer);
+  };
+  
+
+  const handleNextQuestion = () => {
+    dispatch(resetWrongAnswers());
+    dispatch(resetCorrectAnswers());
     dispatch(nextQuestion());
+    setShowAnswers(false);
+    openModal();
+  };
+
+  const handleResetGame = () => {
+    dispatch(resetGame());
     setShowAnswers(false);
   };
 
-  const handleInputChange = (e) => {
-    const inputValue = e.target.value;
-  
-    const formattedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
-  
-    if (!/\d/.test(formattedInputValue)) {
-      setUserAnswer(formattedInputValue);
-    }
+  const handleResetWrongAnswers = () => {
+    dispatch(resetWrongAnswers());
   };
-  
-  const handleShowAnswer = () => {
-    const lowercaseAnswers = currentRound.answers.map((answer) =>
-      answer.toLowerCase()
-    );
 
-    const userAnswerLowercase = userAnswer.toLowerCase();
+  const isIncorrectAnswer = (answer) => {
+    return !answers.includes(answer);
+  };
 
-    const answerIndex = lowercaseAnswers.findIndex(
-      (answer) => answer === userAnswerLowercase || answer.replace(/-/g, '') === userAnswerLowercase
-    );
-
-    if (answerIndex !== -1) {
-      handlePlaySoundCorrect();
-      setUserAnswer("");
-      dispatch(correctAnswer(userAnswer));
-      setUserAnswers([...userAnswers, userAnswer]);
-    } else {
-      if (errorCount < 5) {
-        setErrorCount(errorCount + 1);
+  const handleAnswer = () => {
+    if (userAnswer) {
+      if (isIncorrectAnswer(userAnswer)) {
         setUserAnswer("");
         dispatch(uncorrectAnswer(userAnswer));
-        if (audioRef.current) {
-          audioRef.current.play();
-        }
+      } else {
+        setUserAnswer("");
+        dispatch(correctAnswer(userAnswer));
       }
     }
   };
 
-  const handleTransferPoints = () => {
-    dispatch(transferPoints(selectedTeamID, totalPoints));
-    dispatch(resetTotalPoints());
-    setShowAnswers(true)
+  const handlers = {
+    setShowAnswers,
+    handleSelectTeam,
+    handleNextQuestion,
+    setShowAnswers,
+    handleTransferPoints,
+    handleResetWrongAnswers,
   };
 
   return (
     <div className="familiada">
       <Title />
-      <div className="familiada__question">{currentRound.question}</div>
+      <div className="familiada__question">
+        {question}
+        <img
+          src="https://pngimg.com/d/halloween_PNG21.png"
+          className="familiada__players_avatar"
+          onClick={openModal}
+        />
+      </div>
       <div className="familiada__game">
+        {wrongAnswers.length > 0 ? null : (
+          <div className="familiada__game_error_substytut" />
+        )}
         <div className="familiada__game_error">
-          <div className="familiada__game_error">
-            {Array.from({ length: Math.min(errorCount, 4) }, (_, index) => (
-              <div>
-                <img
-                  key={index}
-                  src="https://pngimg.com/d/halloween_PNG10.png"
-                  className="familiada__game_error_symbol"
-                  alt="Error Symbol"
-                  onLoad={handlePlaySoundError}
-                />
-              </div>
-            ))}
-          </div>
+          {wrongAnswers.slice(0, 4).map((_, index) => (
+            <img
+              key={index}
+              src="https://pngimg.com/d/halloween_PNG10.png"
+              alt="Error Symbol"
+              className="familiada__game_error_symbol"
+            />
+          ))}
         </div>
         <div className="familiada__game_table">
-          {currentRound && currentRound.answers
-            ? currentRound.answers.map((answer, index) => (
-                <div className="familiada__game_table_list" key={index}>
-                  <div className="familiada__game_table_answer_number">
-                    {index + 1}.
-                  </div>
-                  {showAnswers || userAnswers.includes(answer) ? (
-                    <div
-                      className={`familiada__game_table_answer_text correct-answer`}
-                    >
-                      {answer}
-                    </div>
-                  ) : null}
+          {answers.map((answer, index) => (
+            <div key={index} className="familiada__game_table_list">
+              <div className="familiada__game_table_answer_number">
+                {index + 1}.
+              </div>
+              {showAnswers || correctAnswers.includes(answer) ? (
+                <div className="familiada__game_table_answer_text">
+                  {answer}
                 </div>
-              ))
-            : null}
+              ) : null}
+            </div>
+          ))}
         </div>
-        <div
-          className={`familiada__game_error_team ${
-            wrongAnswers.length >= 5 ? "" : "hidden"
-          }`}
-        >
-          <img
-            className="familiada__game_error_team_symbol"
-            src="https://static.vecteezy.com/system/resources/previews/009/597/903/original/halloween-pumpkin-scarecrow-png.png"
-            alt="Team Error Symbol"
-            onLoad={handlePlaySoundError}
-          />
+        <div className="familiada__game_error_team">
+          {wrongAnswers.length >= 5 && (
+            <img
+              className="familiada__game_error_team_symbol"
+              src="https://static.vecteezy.com/system/resources/previews/009/597/903/original/halloween-pumpkin-scarecrow-png.png"
+              alt="Team Error Symbol"
+            />
+          )}
         </div>
       </div>
       <div className="familiada__game_total">
@@ -207,8 +224,9 @@ export default function Game() {
         <div
           className="familiada__game_total_send"
           onClick={() => handleTransferPoints()}
+          ref={transferPointsButtonRef}
         >
-          Przekaz punkty
+          Przekaz punkty {selectedTeamID}
         </div>
       </div>
       <div className="familiada__answer">
@@ -218,58 +236,85 @@ export default function Game() {
           id="answer"
           name="answer"
           value={userAnswer}
-          onChange={handleInputChange}
           placeholder="Podaj odpowiedzi..."
           autoComplete="off"
+          onChange={handleInputChange}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
-              handleShowAnswer();
+              handleAnswer();
             }
           }}
         />
-        <div
-          className="familiada__answer_button"
-          onClick={handleShowAnswer}
-          disabled={answerSubmitted}
-        >
-          Odpowiedz
-        </div>
+        <div className="familiada__answer_button">Odpowiedz</div>
       </div>
-      <div className="familiada__answers"></div>
       <div className="familiada__players">
-        <div
-          className={`familiada__players_name ${
-            selectedTeamID === "team1" ? "familiada__players_name_selected" : ""
-          }`}
-          onClick={() => handleSelectTeam("team1")}
-        >
-          Agata i Karol: {team1Score}
+        <div className="familiada__players_div">
+          <img
+            src="https://www.pngarts.com/files/17/Morcego-Halloween-PNG-Pic-HQ.png"
+            className="familiada__players_avatar"
+          />
+          <div
+            className={`familiada__players_name ${
+              selectedTeamID === "team1"
+                ? "familiada__players_name_selected"
+                : ""
+            }`}
+            onClick={() => handleSelectTeam("team1")}
+          >
+            Agata i Karol: {team1Score}
+          </div>
         </div>
-        <div
-          className={`familiada__players_name ${
-            selectedTeamID === "team2" ? "familiada__players_name_selected" : ""
-          }`}
-          onClick={() => handleSelectTeam("team2")}
-        >
-          Klaudia i Darek: {team2Score}
+        <div className="familiada__players_div">
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/012/658/583/original/halloween-ghost-spooky-ghost-free-png.png"
+            className="familiada__players_avatar"
+          />
+          <div
+            className={`familiada__players_name ${
+              selectedTeamID === "team2"
+                ? "familiada__players_name_selected"
+                : ""
+            }`}
+            onClick={() => handleSelectTeam("team2")}
+          >
+            Klaudia i Darek: {team2Score}
+          </div>
         </div>
-        <div
-          className={`familiada__players_name ${
-            selectedTeamID === "team3" ? "familiada__players_name_selected" : ""
-          }`}
-          onClick={() => handleSelectTeam("team3")}
-        >
-          Monika i Dawid: {team3Score}
+        <div className="familiada__players_div">
+          <img
+            src="https://pngimg.com/d/halloween_PNG36.png"
+            className="familiada__players_avatar"
+          />
+          <div
+            className={`familiada__players_name ${
+              selectedTeamID === "team3"
+                ? "familiada__players_name_selected"
+                : ""
+            }`}
+            onClick={() => handleSelectTeam("team3")}
+          >
+            Monika i Dawid: {team3Score}
+          </div>
         </div>
       </div>
       <div className="familiada__actions">
-        <div className="familiada__actions_next" onClick={handleResetGame}>
+        <div
+          className="familiada__game_total_send"
+          onClick={() => handleResetWrongAnswers()}
+        >
+          Reset zlych odpowiedzi
+        </div>
+        <div className="familiada__game_total_send" onClick={handleResetGame}>
           Reset
         </div>
-        <div className="familiada__actions_next" onClick={handleNextQuestion}>
-          Następne pytanie
+        <div
+          className="familiada__game_total_send"
+          onClick={handleNextQuestion}
+        >
+          Nastepne pytanie
         </div>
       </div>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }

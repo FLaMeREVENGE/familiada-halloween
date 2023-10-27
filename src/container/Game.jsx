@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   correctAnswer,
   nextQuestion,
+  resetCorrectAnswers,
   resetGame,
   resetTotalPoints,
   resetWrongAnswers,
@@ -21,18 +22,17 @@ export default function Game() {
   const team2Score = useSelector((state) => state.question.team2);
   const team3Score = useSelector((state) => state.question.team3);
 
+  const currentRound = useSelector((state) => state.question.currentRound);
+
   const selectedTeamID = useSelector((state) => state.question.selectedTeam);
   const totalPoints = useSelector((state) => state.question.totalPoints);
 
   const question = useSelector((state) => state.question.currentRound.question);
   const answers = useSelector((state) => state.question.currentRound.answers);
 
-  const correctAnswers = useSelector(
-    (state) => state.question.currentRound.correctAnswers
-  );
-  const wrongAnswers = useSelector(
-    (state) => state.question.currentRound.wrongAnswers
-  );
+  const correctAnswers = useSelector((state) => state.question.correctAnswers);
+  const wrongAnswers = useSelector((state) => state.question.wrongAnswers);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswers, setShowAnswers] = useState(false);
@@ -77,14 +77,13 @@ export default function Game() {
         transferPointsButtonRef.current.click();
       }
     };
-  
+
     window.addEventListener("keydown", handleKeyPress);
-  
+
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
-  
 
   const handlePlaySoundError = () => {
     const sound = new Audio(
@@ -124,10 +123,11 @@ export default function Game() {
   };
 
   const handleNextQuestion = () => {
-    dispatch(nextQuestion());
+    dispatch(resetWrongAnswers());
+    dispatch(resetCorrectAnswers());
     dispatch(nextQuestion());
     setShowAnswers(false);
-    openModal()
+    openModal();
   };
 
   const handleResetGame = () => {

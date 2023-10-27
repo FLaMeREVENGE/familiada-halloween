@@ -15,6 +15,10 @@ export const resetWrongAnswers = () => ({
   type: "RESET_WRONG_ANSWERS",
 });
 
+export const resetCorrectAnswers = () => ({
+  type: "RESET_CORRECT_ANSWERS",
+});
+
 export const resetTotalPoints = () => {
   return {
     type: "RESET_TOTAL_POINTS",

@@ -13,8 +13,6 @@ const questions = [
       "Klasyczna",
       "Electro",
     ],
-    correctAnswers: [],
-    wrongAnswers: [],
   },  
   {
     question: "Podaj przedmioty w kuchni",
@@ -30,8 +28,6 @@ const questions = [
       "Siekacz",
       "Deska do krojenia",
     ],
-    correctAnswers: [],
-    wrongAnswers: [],
   },
   {
     question: "Podaj znane marki samochodów",
@@ -47,8 +43,6 @@ const questions = [
       "Chevrolet",
       "Volvo",
     ],
-    correctAnswers: [],
-    wrongAnswers: [],
   },
   {
     question: "Podaj języki świata",
@@ -64,8 +58,6 @@ const questions = [
       "Włoski",
       "Polski",
     ],
-    correctAnswers: [],
-    wrongAnswers: [],
   },  
 ];
 

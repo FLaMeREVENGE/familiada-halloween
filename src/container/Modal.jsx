@@ -116,7 +116,7 @@ const Modal = ({ isOpen, onClose }) => {
       <div className="modal">
         <button className="modal-close" onClick={onClose}>
           <img
-            src="https://png.pngtree.com/png-clipart/20220916/ourmid/pngtree-mushroom-zombie-cartoon-png-image_6176780.png"
+            src="https://pngimg.com/d/halloween_PNG21.png"
             className="familiada__players_avatar"
             alt="Close Modal"
           />

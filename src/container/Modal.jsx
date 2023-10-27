@@ -38,7 +38,7 @@ const Modal = ({ isOpen, onClose }) => {
 
   const startTimer = () => {
     if (remainingTime === null) {
-      setRemainingTime(5);
+      setRemainingTime(1);
       setTimerStarted(true);
     }
   };

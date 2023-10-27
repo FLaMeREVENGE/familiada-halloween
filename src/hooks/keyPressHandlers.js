@@ -12,12 +12,9 @@ export const handleKeyPress = (event, dispatch, handlers) => {
     case "0":
       handlers.handleNextQuestion();
       break;
-    case "4":
-      handlers.handleTransferPoints();
+    case "9":
+      handlers.handleResetWrongAnswers();
       break;
-      case "9":
-        handlers.handleResetWrongAnswers();
-        break;
     default:
       break;
   }

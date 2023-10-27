@@ -13,6 +13,7 @@ import {
 import Title from "./Title";
 import { handleKeyPress } from "../hooks/keyPressHandlers";
 import Modal from "./Modal";
+import { useRef } from "react";
 
 export default function Game() {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ export default function Game() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswers, setShowAnswers] = useState(false);
+
+  const transferPointsButtonRef = useRef(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -67,6 +70,21 @@ export default function Game() {
       window.removeEventListener("keypress", keyPressHandler);
     };
   }, []);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "5" && transferPointsButtonRef.current) {
+        transferPointsButtonRef.current.click();
+      }
+    };
+  
+    window.addEventListener("keydown", handleKeyPress);
+  
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
+  
 
   const handlePlaySoundError = () => {
     const sound = new Audio(
@@ -168,7 +186,6 @@ export default function Game() {
               src="https://pngimg.com/d/halloween_PNG10.png"
               alt="Error Symbol"
               className="familiada__game_error_symbol"
-              onLoad={handlePlaySoundError}
             />
           ))}
         </div>
@@ -192,17 +209,16 @@ export default function Game() {
               className="familiada__game_error_team_symbol"
               src="https://static.vecteezy.com/system/resources/previews/009/597/903/original/halloween-pumpkin-scarecrow-png.png"
               alt="Team Error Symbol"
-              onLoad={handlePlaySoundError}
             />
           )}
         </div>
       </div>
       <div className="familiada__game_total">
         <div className="familiada__game_total_points">SUMA: {totalPoints}</div>
-
         <div
           className="familiada__game_total_send"
           onClick={() => handleTransferPoints()}
+          ref={transferPointsButtonRef}
         >
           Przekaz punkty {selectedTeamID}
         </div>
@@ -260,7 +276,7 @@ export default function Game() {
         </div>
         <div className="familiada__players_div">
           <img
-            src="https://assets.stickpng.com/images/5f468cb297b4fe000462da2c.png"
+            src="https://pngimg.com/d/halloween_PNG36.png"
             className="familiada__players_avatar"
           />
           <div

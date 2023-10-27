@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Modal = ({ isOpen, onClose }) => {
+  const question = useSelector((state) => state.question.currentRound.question);
   const [pressedKeys, setPressedKeys] = useState([]);
   const [isAvatarActive1, setIsAvatarActive1] = useState(false);
   const [isAvatarActive2, setIsAvatarActive2] = useState(false);
   const [isAvatarActive3, setIsAvatarActive3] = useState(false);
   const [remainingTime, setRemainingTime] = useState(null);
   const [timerStarted, setTimerStarted] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
+  const [remainingShowAnswerTime, setRemainingShowAnswerTime] = useState(0);
 
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
@@ -15,14 +19,20 @@ const Modal = ({ isOpen, onClose }) => {
       setIsAvatarActive1(!isAvatarActive1);
       setPressedKeys((prevKeys) => [...prevKeys, "a"]);
       startTimer();
+      playAvatarSound();
     } else if (e.key === "h" && !timerStarted) {
       setIsAvatarActive2(!isAvatarActive2);
       setPressedKeys((prevKeys) => [...prevKeys, "h"]);
       startTimer();
+      playAvatarSound();
     } else if (e.key === "'" && !timerStarted) {
       setIsAvatarActive3(!isAvatarActive3);
       setPressedKeys((prevKeys) => [...prevKeys, "'"]);
       startTimer();
+      playAvatarSound();
+    } else if (e.key === "6" && !timerStarted) {
+      handleShowQuestion();
+      setShowQuestion(false);
     }
   };
 
@@ -31,6 +41,11 @@ const Modal = ({ isOpen, onClose }) => {
       setRemainingTime(5);
       setTimerStarted(true);
     }
+  };
+
+  const handleShowQuestion = () => {
+    setRemainingShowAnswerTime(5);
+    setShowQuestion(false);
   };
 
   useEffect(() => {
@@ -43,6 +58,8 @@ const Modal = ({ isOpen, onClose }) => {
       setPressedKeys([]);
       setRemainingTime(null);
       setTimerStarted(false);
+      setShowQuestion(false);
+      setRemainingShowAnswerTime(0);
     }
 
     return () => {
@@ -65,9 +82,29 @@ const Modal = ({ isOpen, onClose }) => {
     return () => clearInterval(interval);
   }, [remainingTime]);
 
+  useEffect(() => {
+    let countdownInterval;
+    if (remainingShowAnswerTime > 0) {
+      countdownInterval = setInterval(() => {
+        setRemainingShowAnswerTime((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (remainingShowAnswerTime === 0) {
+      setShowQuestion(true);
+    }
+
+    return () => clearInterval(countdownInterval);
+  }, [remainingShowAnswerTime]);
+
   const handlePlaySoundTimeout = () => {
     const sound = new Audio(
       "https://firebasestorage.googleapis.com/v0/b/graminator.appspot.com/o/IMG%2FUTILS%2FX2Download.app%20-%20Time%20out%20Buzzer%20Sound%20effect%20(128%20kbps).mp3?alt=media&token=dda52c38-adc7-4632-9734-b858cf9d46be"
+    );
+    sound.play();
+  };
+
+  const playAvatarSound = () => {
+    const sound = new Audio(
+      "https://firebasestorage.googleapis.com/v0/b/graminator.appspot.com/o/IMG%2FUTILS%2FX2Download.app%20-%20Video%20Game%20Beep%20-%20Sound%20Effect%20(128%20kbps).mp3?alt=media&token=dfcf90e7-6a63-4778-9e72-eec0ab2f291a"
     );
     sound.play();
   };
@@ -84,6 +121,22 @@ const Modal = ({ isOpen, onClose }) => {
             alt="Close Modal"
           />
         </button>
+        {!showQuestion && remainingShowAnswerTime <= 0 && (
+          <button
+            className="modal_question"
+            onClick={() => {
+              handleShowQuestion();
+              setShowQuestion(false);
+            }}
+          >
+            Pokaz Pytanie
+          </button>
+        )}
+        {showQuestion ? (
+          <div className="modal_question">{question}</div>
+        ) : remainingShowAnswerTime > 0 ? (
+          <div className="modal_question">{remainingShowAnswerTime}</div>
+        ) : null}
         {remainingTime !== null && (
           <div className="modal_timer">{remainingTime}</div>
         )}
@@ -127,7 +180,7 @@ const Modal = ({ isOpen, onClose }) => {
             </div>
             <div className="avatar">
               <img
-                src="https://assets.stickpng.com/images/5f468cb297b4fe000462da2c.png"
+                src="https://pngimg.com/d/halloween_PNG36.png"
                 className={`modal_avatar ${
                   isAvatarActive3 && "modal_avatar_active"
                 }`}

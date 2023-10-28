@@ -117,15 +117,8 @@ export default function Game() {
     }
   
     const inputValue = event.target.value;
-    
-    let finalAnswer = inputValue.replace(/\b\w/g, (char) => char.toUpperCase());
-    
-    setUserAnswer(finalAnswer);
+    setUserAnswer(inputValue);
   };
-  
-  
-  
-  
 
   const handleNextQuestion = () => {
     dispatch(resetWrongAnswers());

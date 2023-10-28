@@ -117,8 +117,11 @@ export default function Game() {
     }
   
     const inputValue = event.target.value;
-    setUserAnswer(inputValue);
+    const sanitizedInputValue = inputValue.replace(/[0-9]/g, "");
+    
+    setUserAnswer(sanitizedInputValue);
   };
+  
 
   const handleNextQuestion = () => {
     dispatch(resetWrongAnswers());

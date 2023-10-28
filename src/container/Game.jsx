@@ -119,13 +119,15 @@ export default function Game() {
     const inputValue = event.target.value;
     const sanitizedInputValue = inputValue.replace(/[0-9]/g, "");
     const words = sanitizedInputValue.split(" ");
-    const firstWord = words.shift(); 
-    const capitalizedFirstWord = firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase();
-    const lowercaseWords = words.map((word) => word.toLowerCase());
-    const finalAnswer = [capitalizedFirstWord, ...lowercaseWords].join(" ");
-    
+    const modifiedWords = words.map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    });
+  
+    const finalAnswer = modifiedWords.join(" ");
+  
     setUserAnswer(finalAnswer);
   };
+  
   
 
   const handleNextQuestion = () => {

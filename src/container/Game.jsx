@@ -20,7 +20,6 @@ export default function Game() {
   const dispatch = useDispatch();
   const team1Score = useSelector((state) => state.question.team1);
   const team2Score = useSelector((state) => state.question.team2);
-  const team3Score = useSelector((state) => state.question.team3);
 
   const currentRound = useSelector((state) => state.question.currentRound);
 
@@ -36,6 +35,7 @@ export default function Game() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
   const [showAnswers, setShowAnswers] = useState(false);
+  const [timer, setTimer] = useState(null);
 
   const transferPointsButtonRef = useRef(null);
 
@@ -61,6 +61,14 @@ export default function Game() {
 
   useEffect(() => {
     const keyPressHandler = (event) => {
+      if (event.key === "=") {
+        handleNextQuestion();
+        return;
+      }
+      if (event.key === "8") {
+        setTimer(3);
+        return;
+      }
       handleKeyPress(event, dispatch, handlers);
     };
 
@@ -70,6 +78,22 @@ export default function Game() {
       window.removeEventListener("keypress", keyPressHandler);
     };
   }, []);
+
+  useEffect(() => {
+    if (timer === null) return;
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => (prev !== null ? prev - 1 : null));
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+    if (timer === 0) {
+      const timeout = setTimeout(() => {
+        setTimer(null);
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [timer]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -141,17 +165,26 @@ export default function Game() {
   };
 
   const isIncorrectAnswer = (answer) => {
-    return !answers.includes(answer);
+    // Uznaj odpowiedź, jeśli wpisane są 3 pierwsze litery poprawnej odpowiedzi (ignorując wielkość liter)
+    const normalizedInput = answer.trim().toLowerCase();
+    return !answers.some((ans) =>
+      ans.trim().toLowerCase().startsWith(normalizedInput)
+    );
   };
 
   const handleAnswer = () => {
     if (userAnswer) {
-      if (isIncorrectAnswer(userAnswer)) {
+      const normalizedInput = userAnswer.trim().toLowerCase();
+      // znajdź pełną odpowiedź pasującą do 3 pierwszych liter
+      const matchedAnswer = answers.find((ans) =>
+        ans.trim().toLowerCase().startsWith(normalizedInput)
+      );
+      if (!matchedAnswer) {
         setUserAnswer("");
         dispatch(uncorrectAnswer(userAnswer));
       } else {
         setUserAnswer("");
-        dispatch(correctAnswer(userAnswer));
+        dispatch(correctAnswer(matchedAnswer));
       }
     }
   };
@@ -221,7 +254,12 @@ export default function Game() {
           onClick={() => handleTransferPoints()}
           ref={transferPointsButtonRef}
         >
-          Przekaz punkty {selectedTeamID}
+          {"Przekaz punkty: "}
+          {selectedTeamID === "team1"
+            ? "Rodzina Draculi"
+            : selectedTeamID === "team2"
+            ? "Rodzina Frankensteina"
+            : ""}
         </div>
       </div>
       <div className="familiada__answer">
@@ -241,6 +279,26 @@ export default function Game() {
           }}
         />
         <div className="familiada__answer_button">Odpowiedz</div>
+        {timer !== null && timer >= 0 && (
+          <div
+            style={{
+              minWidth: 70,
+              minHeight: 70,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #ff0000 60%, #b30000 100%)',
+              border: '4px solid #ff4d4d',
+              fontSize: 48,
+              color: 'white',
+              fontFamily: 'Starting Machine',
+              boxShadow: '0 0 16px 2px #ff0000',
+              fontWeight: 'bold',
+            }}
+          >
+            {timer}
+          </div>
+        )}
       </div>
       <div className="familiada__players">
         <div className="familiada__players_div">
@@ -256,7 +314,7 @@ export default function Game() {
             }`}
             onClick={() => handleSelectTeam("team1")}
           >
-            Agata i Karol: {team1Score}
+            Rodzina Draculi: {team1Score}
           </div>
         </div>
         <div className="familiada__players_div">
@@ -272,23 +330,7 @@ export default function Game() {
             }`}
             onClick={() => handleSelectTeam("team2")}
           >
-            Klaudia i Darek: {team2Score}
-          </div>
-        </div>
-        <div className="familiada__players_div">
-          <img
-            src="https://pngimg.com/d/halloween_PNG36.png"
-            className="familiada__players_avatar"
-          />
-          <div
-            className={`familiada__players_name ${
-              selectedTeamID === "team3"
-                ? "familiada__players_name_selected"
-                : ""
-            }`}
-            onClick={() => handleSelectTeam("team3")}
-          >
-            Monika i Dawid: {team3Score}
+            Rodzina Frankensteina: {team2Score}
           </div>
         </div>
       </div>

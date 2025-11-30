@@ -1,0 +1,277 @@
+/* Rules Page Styles */
+.rules-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--charcoal-blue) 0%, var(--verdigris) 100%);
+  padding: 2rem;
+  font-family: 'BPdots', monospace;
+}
+
+.rules-content {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Przycisk powrotu */
+.btn-back {
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
+  color: var(--jasmine);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.btn-back:hover {
+  background: var(--verdigris);
+  transform: translateX(-5px);
+}
+
+/* Tytuł główny */
+.rules-title {
+  font-family: 'BPdots', monospace;
+  font-size: 2.5rem;
+  color: var(--jasmine);
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow: 
+    2px 2px 0 var(--sandy-brown),
+    4px 4px 0 var(--burnt-peach),
+    6px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Sekcje */
+.rules-section {
+  background: rgba(38, 70, 83, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+  font-family: 'BPdots', monospace;
+  font-size: 1.8rem;
+  color: var(--jasmine);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title svg {
+  color: var(--sandy-brown);
+}
+
+/* Tekst zasad */
+.rules-text {
+  font-family: 'BPdots', monospace;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.rules-text p {
+  margin-bottom: 1rem;
+}
+
+.rules-text h3 {
+  font-family: 'BPdots', monospace;
+  color: var(--sandy-brown);
+  font-size: 1.3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.rules-text h4 {
+  font-family: 'BPdots', monospace;
+  color: var(--verdigris);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.rules-text ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.rules-text ol li {
+  margin-bottom: 0.8rem;
+  padding-left: 0.5rem;
+}
+
+.rules-text ul {
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+}
+
+.rules-text ul li {
+  margin-bottom: 0.4rem;
+}
+
+.rules-text strong {
+  color: var(--jasmine);
+}
+
+/* Boksy informacyjne */
+.info-box,
+.warning-box,
+.success-box {
+  background: rgba(42, 157, 143, 0.2);
+  border-left: 4px solid var(--verdigris);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.info-box svg,
+.warning-box svg,
+.success-box svg {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.info-box svg {
+  color: var(--jasmine);
+}
+
+.warning-box {
+  background: rgba(231, 111, 81, 0.2);
+  border-left-color: var(--burnt-peach);
+}
+
+.warning-box svg {
+  color: var(--burnt-peach);
+}
+
+.success-box {
+  background: rgba(42, 157, 143, 0.2);
+  border-left-color: var(--verdigris);
+}
+
+.success-box svg {
+  color: var(--verdigris);
+}
+
+.info-box p,
+.warning-box p,
+.success-box p {
+  margin: 0;
+  flex: 1;
+}
+
+/* FAQ */
+.faq-item {
+  background: rgba(42, 157, 143, 0.1);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.faq-item h4 {
+  margin-top: 0;
+}
+
+.faq-item p {
+  margin-bottom: 0;
+}
+
+/* Footer z przyciskiem */
+.rules-footer {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.btn-start-game {
+  font-family: 'BPdots', monospace;
+  background: var(--sandy-brown);
+  color: var(--charcoal-blue);
+  border: none;
+  padding: 1.2rem 3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(233, 196, 106, 0.4);
+}
+
+.btn-start-game:hover {
+  background: var(--jasmine);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 30px rgba(233, 196, 106, 0.6);
+}
+
+.btn-start-game svg {
+  font-size: 1.5rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .rules-container {
+    padding: 1rem;
+  }
+
+  .rules-title {
+    font-size: 1.8rem;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .rules-section {
+    padding: 1.5rem;
+  }
+
+  .rules-text {
+    font-size: 0.9rem;
+  }
+
+  .rules-text h3 {
+    font-size: 1.1rem;
+  }
+
+  .rules-text ol {
+    margin-left: 1rem;
+  }
+
+  .rules-text ul {
+    margin-left: 1.5rem;
+  }
+
+  .btn-start-game {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .info-box,
+  .warning-box,
+  .success-box {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .info-box svg,
+  .warning-box svg,
+  .success-box svg {
+    font-size: 1.8rem;
+  }
+}

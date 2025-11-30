@@ -311,6 +311,20 @@ export default function PlayerGamePage() {
             </div>
           </div>
 
+          {/* Małe X-y pod odpowiedziami (tylko mobile) */}
+          <div className="wrong-answers-mobile">
+            <div className="wrong-answers-mobile-left">
+              {Array.from({ length: Math.min(gameData?.wrongAnswersCount || 0, 4) }).map((_, i) => (
+                <span key={i} className="wrong-x-small"><PiXBold /></span>
+              ))}
+            </div>
+            <div className="wrong-answers-mobile-right">
+              {(gameData?.wrongAnswersCount || 0) >= 5 && (
+                <span className="wrong-x-small"><PiXBold /></span>
+              )}
+            </div>
+          </div>
+
           {/* Informacja o przekazanych punktach */}
           {gameData?.pointsTransferred && gameData?.lastPointsRecipient && (
             <div className="points-transfer-info">

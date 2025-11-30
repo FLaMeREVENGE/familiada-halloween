@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setMode, leaveGame } from "@/redux/reducer/gameSlice";
-import { PiGameControllerFill, PiUsersFill } from "react-icons/pi";
+import { PiGameControllerFill, PiUsersFill, PiBookOpenFill } from "react-icons/pi";
 import "./home.css";
 
 export default function Home() {
@@ -24,6 +24,10 @@ export default function Home() {
   const handleJoinGame = () => {
     dispatch(setMode('player'));
     router.push('/join');
+  };
+
+  const handleRules = () => {
+    router.push('/rules');
   };
 
   return (
@@ -52,6 +56,17 @@ export default function Home() {
             <div className="button-text">
               <h2>Dołącz do gry</h2>
               <p>jako drużyna</p>
+            </div>
+          </button>
+
+          <button 
+            className="mode-button rules-button"
+            onClick={handleRules}
+          >
+            <div className="button-icon"><PiBookOpenFill size={48} /></div>
+            <div className="button-text">
+              <h2>Instrukcja gry</h2>
+              <p>zasady i poradnik</p>
             </div>
           </button>
         </div>

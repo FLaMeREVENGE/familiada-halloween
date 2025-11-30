@@ -122,6 +122,14 @@
   box-shadow: 0 12px 40px rgba(244, 162, 97, 0.5);
 }
 
+.rules-button {
+  background: linear-gradient(135deg, #e9c46a 0%, #f4a261 100%);
+}
+
+.rules-button:hover {
+  box-shadow: 0 12px 40px rgba(233, 196, 106, 0.5);
+}
+
 .button-icon {
   font-size: 4rem;
   position: relative;

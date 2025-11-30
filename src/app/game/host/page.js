@@ -398,8 +398,8 @@ export default function HostGamePage() {
                 return (
                   <div
                     key={index}
-                    className={`answer-card ${isRevealed ? "revealed" : ""}`}
-                    onClick={() => !isRevealed && handleRevealAnswer(answer.answer, answer.points)}
+                    className={`answer-card ${isRevealed ? "revealed" : ""} ${gameData?.pointsTransferred ? "disabled" : ""}`}
+                    onClick={() => !isRevealed && !gameData?.pointsTransferred && handleRevealAnswer(answer.answer, answer.points)}
                   >
                     <div className="answer-content">
                       <span className="answer-number">{index + 1}.</span>
@@ -419,6 +419,20 @@ export default function HostGamePage() {
             </div>
           </div>
 
+          {/* Małe X-y pod odpowiedziami (tylko mobile) */}
+          <div className="wrong-answers-mobile">
+            <div className="wrong-answers-mobile-left">
+              {Array.from({ length: Math.min(gameData?.wrongAnswersCount || 0, 4) }).map((_, i) => (
+                <span key={i} className="wrong-x-small"><PiXBold /></span>
+              ))}
+            </div>
+            <div className="wrong-answers-mobile-right">
+              {(gameData?.wrongAnswersCount || 0) >= 5 && (
+                <span className="wrong-x-small"><PiXBold /></span>
+              )}
+            </div>
+          </div>
+
           {/* Panel kontrolny */}
           <div className="host-controls">
             <div className="status-bar">
@@ -429,16 +443,25 @@ export default function HostGamePage() {
             </div>
 
             <div className="controls-section">
-              <button className="control-btn btn-wrong" onClick={handleWrongAnswer}>
+              <button 
+                className="control-btn btn-wrong" 
+                onClick={handleWrongAnswer}
+                disabled={gameData?.pointsTransferred}
+              >
                 <PiXCircleFill /> Błędna odpowiedź
               </button>
               <button 
                 className="control-btn btn-warning" 
                 onClick={handleToggleWarning}
+                disabled={gameData?.pointsTransferred}
               >
                 <PiWarningFill /> {gameData?.warningActive ? "Zatrzymaj ostrzeżenie" : "Ostrzeżenie"}
               </button>
-              <button className="control-btn btn-reset-wrong" onClick={handleResetWrong}>
+              <button 
+                className="control-btn btn-reset-wrong" 
+                onClick={handleResetWrong}
+                disabled={gameData?.pointsTransferred}
+              >
                 <PiArrowClockwiseBold /> Reset błędnych
               </button>
             </div>
@@ -475,7 +498,7 @@ export default function HostGamePage() {
                   onClick={handleNextQuestion}
                   disabled={!gameData?.pointsTransferred}
                 >
-                  <PiArrowRightBold /> Przejdź do następnego pytania
+                  <PiArrowRightBold /> Następne pytanie
                 </button>
               ) : (
                 <button 
@@ -522,7 +545,7 @@ export default function HostGamePage() {
 
           <div className="summary-actions">
             <button className="control-btn btn-next-question" onClick={handleRestartGame}>
-              <PiArrowClockwiseBold /> Rozpocznij kolejną grę
+              <PiArrowClockwiseBold /> Nowa gra
             </button>
             <button className="control-btn btn-wrong" onClick={handleEndGame}>
               <PiXCircleFill /> Zakończ grę

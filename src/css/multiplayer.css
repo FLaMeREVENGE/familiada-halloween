@@ -414,20 +414,41 @@
 /* Responsive */
 @media (max-width: 768px) {
   .home-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .home-subtitle {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
   .button-text h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   
   .game-code {
-    font-size: 3rem;
-    letter-spacing: 0.5rem;
+    font-size: 2.5rem;
+    letter-spacing: 0.3rem;
+  }
+  
+  /* Przyciski full width na mobile */
+  .start-game-btn,
+  .form-button,
+  .back-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  /* Host actions - przyciski jeden pod drugim */
+  .host-actions {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .btn-start,
+  .btn-cancel {
+    width: 100%;
   }
   
   .host-content,

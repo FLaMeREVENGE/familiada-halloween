@@ -1,14 +1,24 @@
 "use client";
-import Game from "../container/Game";
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/home');
+  }, []);
+
   return (
-    <Provider store={store}>
-      <Game />
-    </Provider>
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: '100vh' 
+    }}>
+      <p>Przekierowywanie...</p>
+    </div>
   );
 };
 
-export default page;
+export default Page;

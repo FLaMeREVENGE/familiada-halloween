@@ -184,6 +184,9 @@ export const selectCategory = async (gameCode, category) => {
       gamePhase: 'buzz', // Rozpoczyna fazę buzz
     });
     console.log(`[SELECT] Category ${category} saved to Firestore`);
+    
+    // Pokaż alert o wybranej kategorii
+    await showCategorySelectedAlert(gameCode, category);
   } else {
     // Demo mode
     await localGameStorage.updateGame(gameCode, {
@@ -195,6 +198,9 @@ export const selectCategory = async (gameCode, category) => {
       gamePhase: 'buzz',
     });
     console.log(`[SELECT] Category ${category} saved to local storage`);
+    
+    // Pokaż alert o wybranej kategorii
+    await showCategorySelectedAlert(gameCode, category);
   }
 };
 
@@ -391,6 +397,208 @@ export const updateWarningCountdown = async (gameCode, countdown) => {
   }
 };
 
+// Alert błędnej odpowiedzi (pokazywany drużynom na 2 sekundy)
+export const showWrongAnswerAlert = async (gameCode, wrongCount) => {
+  console.log(`[GAME] Showing wrong answer alert (count: ${wrongCount})`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      wrongAnswerAlert: true,
+      wrongAnswerCount: wrongCount,
+    });
+    
+    // Automatycznie wyłącz po 2 sekundach
+    setTimeout(async () => {
+      await updateDoc(gameRef, {
+        wrongAnswerAlert: false,
+      });
+      
+      // Jeśli to był 4 błąd, pokaż alert o przejściu pytania po dodatkowych 0.5s
+      if (wrongCount === 4) {
+        setTimeout(async () => {
+          await showTransferQuestionAlert(gameCode);
+        }, 500);
+      }
+    }, 2000);
+  } else {
+    await localGameStorage.updateGame(gameCode, {
+      wrongAnswerAlert: true,
+      wrongAnswerCount: wrongCount,
+    });
+    
+    // Automatycznie wyłącz po 2 sekundach
+    setTimeout(async () => {
+      await localGameStorage.updateGame(gameCode, {
+        wrongAnswerAlert: false,
+      });
+      
+      // Jeśli to był 4 błąd, pokaż alert o przejściu pytania po dodatkowych 0.5s
+      if (wrongCount === 4) {
+        setTimeout(async () => {
+          await showTransferQuestionAlert(gameCode);
+        }, 500);
+      }
+    }, 2000);
+  }
+};
+
+// Alert o przejściu pytania na inną drużynę (po 4 błędzie)
+export const showTransferQuestionAlert = async (gameCode) => {
+  console.log(`[GAME] Showing transfer question alert`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      transferQuestionAlert: true,
+    });
+    
+    // Automatycznie wyłącz po 2 sekundach
+    setTimeout(async () => {
+      await updateDoc(gameRef, {
+        transferQuestionAlert: false,
+      });
+    }, 2000);
+  } else {
+    await localGameStorage.updateGame(gameCode, {
+      transferQuestionAlert: true,
+    });
+    
+    // Automatycznie wyłącz po 2 sekundach
+    setTimeout(async () => {
+      await localGameStorage.updateGame(gameCode, {
+        transferQuestionAlert: false,
+      });
+    }, 2000);
+  }
+};
+
+// Alert o następnym pytaniu
+export const showNextQuestionAlert = async (gameCode) => {
+  console.log(`[GAME] Showing next question alert`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      nextQuestionAlert: true,
+    });
+    
+    // Automatycznie wyłącz po 2 sekundach
+    setTimeout(async () => {
+      await updateDoc(gameRef, {
+        nextQuestionAlert: false,
+      });
+    }, 2000);
+  } else {
+    await localGameStorage.updateGame(gameCode, {
+      nextQuestionAlert: true,
+    });
+    
+    // Automatycznie wyłącz po 2 sekundach
+    setTimeout(async () => {
+      await localGameStorage.updateGame(gameCode, {
+        nextQuestionAlert: false,
+      });
+    }, 2000);
+  }
+};
+
+// Alert o wygranej rundy
+export const showRoundWinnerAlert = async (gameCode, winnerTeamName) => {
+  console.log(`[GAME] Showing round winner alert for: ${winnerTeamName}`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      roundWinnerAlert: true,
+      roundWinnerName: winnerTeamName,
+    });
+    
+    // Automatycznie wyłącz po 3 sekundach
+    setTimeout(async () => {
+      await updateDoc(gameRef, {
+        roundWinnerAlert: false,
+        roundWinnerName: null,
+      });
+    }, 3000);
+  } else {
+    await localGameStorage.updateGame(gameCode, {
+      roundWinnerAlert: true,
+      roundWinnerName: winnerTeamName,
+    });
+    
+    // Automatycznie wyłącz po 3 sekundach
+    setTimeout(async () => {
+      await localGameStorage.updateGame(gameCode, {
+        roundWinnerAlert: false,
+        roundWinnerName: null,
+      });
+    }, 3000);
+  }
+};
+
+// Alert końcowy gry (wygrana/przegrana)
+export const showGameResultAlert = async (gameCode) => {
+  console.log(`[GAME] Showing game result alert`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      gameResultAlert: true,
+    });
+    
+    // Automatycznie wyłącz po 3 sekundach
+    setTimeout(async () => {
+      await updateDoc(gameRef, {
+        gameResultAlert: false,
+      });
+    }, 3000);
+  } else {
+    await localGameStorage.updateGame(gameCode, {
+      gameResultAlert: true,
+    });
+    
+    // Automatycznie wyłącz po 3 sekundach
+    setTimeout(async () => {
+      await localGameStorage.updateGame(gameCode, {
+        gameResultAlert: false,
+      });
+    }, 3000);
+  }
+};
+
+// Alert o wybranej kategorii
+export const showCategorySelectedAlert = async (gameCode, categoryName) => {
+  console.log(`[GAME] Showing category selected alert: ${categoryName}`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      categorySelectedAlert: true,
+      selectedCategoryName: categoryName,
+    });
+    
+    // Automatycznie wyłącz po 3 sekundach
+    setTimeout(async () => {
+      await updateDoc(gameRef, {
+        categorySelectedAlert: false,
+      });
+    }, 3000);
+  } else {
+    await localGameStorage.updateGame(gameCode, {
+      categorySelectedAlert: true,
+      selectedCategoryName: categoryName,
+    });
+    
+    // Automatycznie wyłącz po 3 sekundach
+    setTimeout(async () => {
+      await localGameStorage.updateGame(gameCode, {
+        categorySelectedAlert: false,
+      });
+    }, 3000);
+  }
+};
+
 // Przekazanie punktów drużynie
 export const transferPointsToTeam = async (gameCode, teamIndex) => {
   console.log(`[GAME] Transferring points to team ${teamIndex}`);
@@ -420,6 +628,9 @@ export const transferPointsToTeam = async (gameCode, teamIndex) => {
       lastPointsAmount: pointsToTransfer,
     });
     
+    // Pokaż alert o wygranej rundy
+    await showRoundWinnerAlert(gameCode, teamName);
+    
     // Weryfikacja po zapisie - również z serwera
     const verifySnap = await getDocFromServer(gameRef);
     const verifyData = verifySnap.data();
@@ -444,6 +655,9 @@ export const transferPointsToTeam = async (gameCode, teamIndex) => {
       lastPointsRecipient: teamName,
       lastPointsAmount: pointsToTransfer,
     });
+    
+    // Pokaż alert o wygranej rundy
+    await showRoundWinnerAlert(gameCode, teamName);
     
     console.log(`[TRANSFER] Points transferred successfully. New ${fieldName}: ${newScore}`);
   }

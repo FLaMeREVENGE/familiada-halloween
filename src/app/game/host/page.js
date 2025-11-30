@@ -13,6 +13,9 @@ import {
   resetWrongAnswers,
   toggleWarning,
   updateWarningCountdown,
+  showWrongAnswerAlert,
+  showNextQuestionAlert,
+  showGameResultAlert,
   transferPointsToTeam,
   nextQuestion,
   endGame,
@@ -160,7 +163,9 @@ export default function HostGamePage() {
   const handleWrongAnswer = async () => {
     try {
       await addWrongAnswer(gameCode);
-      console.log("[HOST] Wrong answer added");
+      const newCount = (gameData?.wrongAnswersCount || 0) + 1;
+      await showWrongAnswerAlert(gameCode, newCount);
+      console.log("[HOST] Wrong answer added and alert shown");
     } catch (error) {
       console.error("[HOST] Error adding wrong answer:", error);
     }
@@ -214,8 +219,25 @@ export default function HostGamePage() {
 
   const handleNextQuestion = async () => {
     try {
-      await nextQuestion(gameCode);
-      console.log("[HOST] Moved to next question");
+      const isLastQuestion = (gameData?.currentQuestionIndex || 0) === 4;
+      
+      if (isLastQuestion) {
+        // Jeśli to ostatnie pytanie, pokaż alert przed przejściem do podsumowania
+        await showGameResultAlert(gameCode);
+        // Poczekaj 3.5s na wyświetlenie alertu, potem przejdź do podsumowania
+        setTimeout(async () => {
+          await nextQuestion(gameCode);
+          console.log("[HOST] Moved to summary");
+        }, 3500);
+      } else {
+        // Dla pozostałych pytań pokaż normalny alert "Następne pytanie"
+        await showNextQuestionAlert(gameCode);
+        // Poczekaj 2.5s na wyświetlenie alertu, potem przejdź do następnego pytania
+        setTimeout(async () => {
+          await nextQuestion(gameCode);
+          console.log("[HOST] Moved to next question");
+        }, 2500);
+      }
     } catch (error) {
       console.error("[HOST] Error moving to next question:", error);
     }
@@ -359,11 +381,13 @@ export default function HostGamePage() {
             >
               <PiArrowClockwiseBold /> Reset przycisku
             </button>
-            {buzzedTeam && (
-              <button className="btn-start-board" onClick={handleStartGameBoard}>
-                <PiArrowRightBold /> Przejdź do tablicy
-              </button>
-            )}
+            <button 
+              className="btn-start-board" 
+              onClick={handleStartGameBoard}
+              disabled={!buzzedTeam}
+            >
+              <PiArrowRightBold /> Przejdź do tablicy
+            </button>
           </div>
         </div>
       ) : gamePhase === "playing" ? (
@@ -548,7 +572,7 @@ export default function HostGamePage() {
               <PiArrowClockwiseBold /> Nowa gra
             </button>
             <button className="control-btn btn-wrong" onClick={handleEndGame}>
-              <PiXCircleFill /> Zakończ grę
+              <PiXCircleFill /> Zakończ prowadzenie
             </button>
           </div>
         </div>

@@ -16,7 +16,10 @@ import {
   PiHandshakeFill,
   PiConfettiFill,
   PiStarFill,
-  PiWarningFill
+  PiWarningFill,
+  PiXCircleFill,
+  PiArrowRightBold,
+  PiCheckCircleFill
 } from "react-icons/pi";
 import { Navbar } from "@/components";
 import "@/css/game.css";
@@ -181,6 +184,94 @@ export default function PlayerGamePage() {
             </div>
           </div>
         )}
+
+        {/* Overlay błędnej odpowiedzi */}
+        {gameData?.wrongAnswerAlert && (
+          <div className="wrong-answer-overlay">
+            <div className="wrong-answer-content">
+              <PiXCircleFill className="wrong-answer-icon" />
+              <h2 className="wrong-answer-text">Błędna odpowiedź!</h2>
+              {gameData?.wrongAnswerCount < 5 && (
+                <p className="wrong-answer-count">{gameData?.wrongAnswerCount} {gameData?.wrongAnswerCount === 1 ? 'błąd' : gameData?.wrongAnswerCount >= 2 && gameData?.wrongAnswerCount <= 4 ? 'błędy' : 'błędów'}</p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Overlay przejścia pytania na inną drużynę */}
+        {gameData?.transferQuestionAlert && (
+          <div className="wrong-answer-overlay transfer-warning">
+            <div className="wrong-answer-content">
+              <PiLightningFill className="wrong-answer-icon" />
+              <h2 className="wrong-answer-text">Pytanie przechodzi na inną drużynę!</h2>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay następnego pytania */}
+        {gameData?.nextQuestionAlert && (
+          <div className="wrong-answer-overlay next-question">
+            <div className="wrong-answer-content">
+              <PiArrowRightBold className="wrong-answer-icon" />
+              <h2 className="wrong-answer-text">Następne pytanie!</h2>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay wygranej rundy */}
+        {gameData?.roundWinnerAlert && (
+          <div className="wrong-answer-overlay round-winner">
+            <div className="wrong-answer-content">
+              <PiTrophyFill className="wrong-answer-icon" />
+              <h2 className="wrong-answer-text">Rundę wygrywa drużyna</h2>
+              <p className="round-winner-name">{gameData?.roundWinnerName}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay wybranej kategorii */}
+        {gameData?.categorySelectedAlert && (
+          <div className="wrong-answer-overlay category-selected">
+            <div className="wrong-answer-content">
+              <PiCheckCircleFill className="wrong-answer-icon" />
+              <h2 className="wrong-answer-text">Wybrano kategorię</h2>
+              <p className="round-winner-name">{gameData?.selectedCategoryName}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay wyniku końcowego gry */}
+        {gameData?.gameResultAlert && (() => {
+          const team1Score = gameData?.team1Score || 0;
+          const team2Score = gameData?.team2Score || 0;
+          const myScore = myTeamNumber === 1 ? team1Score : team2Score;
+          const opponentScore = myTeamNumber === 1 ? team2Score : team1Score;
+          const isWinner = myScore > opponentScore;
+          const isDraw = myScore === opponentScore;
+          
+          return (
+            <div className={`wrong-answer-overlay ${isWinner ? 'game-winner' : 'game-loser'}`}>
+              <div className="wrong-answer-content">
+                {isDraw ? (
+                  <>
+                    <PiHandshakeFill className="wrong-answer-icon" />
+                    <h2 className="wrong-answer-text">Remis!</h2>
+                  </>
+                ) : isWinner ? (
+                  <>
+                    <PiConfettiFill className="wrong-answer-icon" />
+                    <h2 className="wrong-answer-text">Gratulacje!</h2>
+                  </>
+                ) : (
+                  <>
+                    <PiXCircleFill className="wrong-answer-icon" />
+                    <h2 className="wrong-answer-text">Przegrana</h2>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        })()}
 
       <div className="game-header">
         <h1 className="header-title">
@@ -375,7 +466,7 @@ export default function PlayerGamePage() {
             </div>
           </div>
 
-          <p style={{ marginTop: "2rem", color: "#666" }}>Czekaj na decyzję prowadzącego...</p>
+          <p style={{ marginTop: "2rem", color: "rgba(233, 196, 106, 0.8)" }}>Czekaj na decyzję prowadzącego...</p>
         </div>
       ) : null}
       </div>

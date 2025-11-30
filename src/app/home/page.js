@@ -1,11 +1,18 @@
 "use client";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setMode } from "@/redux/reducer/gameSlice";
+import { setMode, leaveGame } from "@/redux/reducer/gameSlice";
 
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  // Wyczyść cache gry za każdym razem gdy użytkownik wejdzie na stronę główną
+  useEffect(() => {
+    dispatch(leaveGame());
+    console.log("[HOME] Game cache cleared");
+  }, [dispatch]);
 
   const handleCreateGame = () => {
     dispatch(setMode('host'));

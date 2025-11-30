@@ -646,24 +646,101 @@
   .buzzed-info-content {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
     text-align: center;
   }
 
   .buzzed-label {
-    font-size: 1rem;
+    font-size: 0.85rem;
     flex-direction: column;
     text-align: center;
+    gap: 0.5rem;
+  }
+
+  .buzzed-icon {
+    font-size: 2rem;
   }
 
   .team-name-display {
-    font-size: 1.5rem;
-    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.2rem;
   }
 
+  /* Buzz status - mniejszy kontener */
+  .buzz-status {
+    padding: 1.2rem;
+    min-height: 120px;
+    border-radius: 15px;
+  }
+
+  /* Waiting buzz - mniejsze elementy */
+  .pulse-animation {
+    font-size: 2.5rem;
+  }
+
+  .waiting-buzz p {
+    font-size: 0.9rem;
+    margin-top: 0.6rem;
+  }
+
+  /* Host question card - mniejszy */
+  .host-question-card {
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .question-text {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .host-instruction {
+    font-size: 0.85rem;
+  }
+
+  .instruction-icon {
+    font-size: 0.85rem;
+  }
+
+  /* Buzz instruction - jeszcze mniejszy na mobile */
+  .buzz-instruction {
+    padding: 0.8rem;
+    border-radius: 12px;
+  }
+
+  .buzz-instruction h2 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .buzz-instruction p {
+    font-size: 0.75rem;
+    margin: 0.2rem 0;
+  }
+
+  .buzz-hint {
+    font-size: 0.85rem !important;
+    margin-top: 0.3rem !important;
+  }
+
+  .hint-icon {
+    font-size: 0.85rem;
+  }
+
+  /* Buzz button - duży na mobile dla graczy */
   .buzz-button {
-    width: 200px;
-    height: 200px;
-    font-size: 1.5rem;
+    width: 220px;
+    height: 220px;
+    font-size: 1.4rem;
+    padding: 1rem;
+  }
+
+  .buzz-button svg {
+    font-size: 1.8rem;
+  }
+
+  /* Buzz round player - mniejsze odstępy */
+  .buzz-round-player {
+    gap: 1.2rem;
   }
 }

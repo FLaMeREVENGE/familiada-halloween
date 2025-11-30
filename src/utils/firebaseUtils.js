@@ -414,11 +414,11 @@ export const showWrongAnswerAlert = async (gameCode, wrongCount) => {
         wrongAnswerAlert: false,
       });
       
-      // Jeśli to był 4 błąd, pokaż alert o przejściu pytania po dodatkowych 0.5s
+      // Jeśli to był 4 błąd, pokaż alert o przejściu pytania po dodatkowych 0.2s
       if (wrongCount === 4) {
         setTimeout(async () => {
           await showTransferQuestionAlert(gameCode);
-        }, 500);
+        }, 200);
       }
     }, 2000);
   } else {
@@ -433,11 +433,11 @@ export const showWrongAnswerAlert = async (gameCode, wrongCount) => {
         wrongAnswerAlert: false,
       });
       
-      // Jeśli to był 4 błąd, pokaż alert o przejściu pytania po dodatkowych 0.5s
+      // Jeśli to był 4 błąd, pokaż alert o przejściu pytania po dodatkowych 0.2s
       if (wrongCount === 4) {
         setTimeout(async () => {
           await showTransferQuestionAlert(gameCode);
-        }, 500);
+        }, 200);
       }
     }, 2000);
   }

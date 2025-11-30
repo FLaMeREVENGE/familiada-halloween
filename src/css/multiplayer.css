@@ -450,6 +450,19 @@
   .btn-cancel {
     width: 100%;
   }
+
+  /* Form actions - przyciski jeden pod drugim */
+  .form-actions {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .btn-join,
+  .btn-cancel {
+    width: 100%;
+    flex: none;
+  }
   
   .host-content,
   .join-content {

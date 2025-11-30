@@ -718,12 +718,21 @@
     background: rgba(38, 70, 83, 0.95);
     border-radius: 15px;
     margin-top: 0.5rem;
+    min-height: 60px;
   }
 
   .wrong-answers-mobile-left,
   .wrong-answers-mobile-right {
     display: flex;
     gap: 0.5rem;
+    min-width: 120px;
+    min-height: 30px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .wrong-answers-mobile-right {
+    justify-content: flex-end;
   }
 
   .wrong-x-small {

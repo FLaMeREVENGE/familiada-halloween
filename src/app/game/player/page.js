@@ -330,9 +330,9 @@ export default function PlayerGamePage() {
             onClick={handleBuzz}
             disabled={myTeamBuzzed || buzzedTeam !== null}
           >
-            {isFirst === true ? <><PiCheckBold /> PIERWSZY! <PiConfettiFill /></> : 
-             isFirst === false ? <><PiClockCountdownFill /> ZA PÓŹNO</> : 
-             buzzedTeam ? <><PiLockKeyFill /> ZABLOKOWANY</> : 
+            {isFirst === true ? <>PIERWSZY!</> : 
+             isFirst === false ? <>ZA PÓŹNO</> : 
+             buzzedTeam ? <>ZABLOKOWANY</> : 
              "NACIŚNIJ!"}
           </button>
 

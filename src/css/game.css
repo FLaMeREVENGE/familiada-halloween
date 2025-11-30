@@ -314,7 +314,7 @@
 
 .host-instruction {
   font-family: 'BPdots', monospace;
-  font-size: 1.2rem;
+  font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.8);
   font-style: italic;
 }
@@ -695,11 +695,11 @@
   }
 
   .host-instruction {
-    font-size: 0.85rem;
+    font-size: 0.5rem;
   }
 
   .instruction-icon {
-    font-size: 0.85rem;
+    font-size: 0.5rem;
   }
 
   /* Buzz instruction - jeszcze mniejszy na mobile */

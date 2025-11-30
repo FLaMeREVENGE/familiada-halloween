@@ -6,14 +6,11 @@ export const handleKeyPress = (event, dispatch, handlers) => {
     case "2":
       handlers.handleSelectTeam("team2");
       break;
-    case "3":
-      handlers.handleSelectTeam("team3");
+    case "9":
+      handlers.handleResetWrongAnswers();
       break;
     case "0":
       handlers.handleNextQuestion();
-      break;
-    case "9":
-      handlers.handleResetWrongAnswers();
       break;
     default:
       break;

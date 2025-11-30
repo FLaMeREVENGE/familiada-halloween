@@ -3,7 +3,6 @@ import questions from "@/utils/questions";
 const initialState = {
   team1: 0,
   team2: 0,
-  team3: 0,
   rounds: questions,
   selectedTeam: null,
   totalPoints: 0,
@@ -57,6 +56,8 @@ const questionReducer = (state = initialState, action) => {
     case "TRANSFER_POINTS":
       const { selectedTeam, pointsToTransfer } = action.payload;
       const currentTeamScore = state[selectedTeam];
+      // Zabezpieczenie: tylko team1 i team2 mogą dostać punkty
+      if (selectedTeam !== "team1" && selectedTeam !== "team2") return state;
       return {
         ...state,
         [selectedTeam]: currentTeamScore + pointsToTransfer,
@@ -86,7 +87,10 @@ const questionReducer = (state = initialState, action) => {
         totalPoints: 0,
       };
     case "RESET_GAME":
-      return initialState;
+      return {
+        ...initialState,
+        team3: undefined // nie przywracaj team3
+      };
     default:
       return state;
   }

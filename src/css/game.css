@@ -301,6 +301,39 @@
   transform: translateY(0);
 }
 
+/* Kontener dla przycisków w fazie buzz */
+.buzz-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Przycisk "Przejdź do tablicy" */
+.btn-start-board {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.btn-start-board:hover {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+
+.btn-start-board:active {
+  transform: translateY(0);
+}
+
 /* === BUZZ ROUND - PLAYER === */
 .buzz-round-player {
   width: 100%;

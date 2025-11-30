@@ -206,7 +206,16 @@ export const getAvailableCategories = () => {
 // Funkcja zwracająca pytania dla wybranej kategorii
 export const getQuestionsByCategory = (category) => {
   const set = questionSets.find((s) => s.category === category);
-  return set ? set.questions : [];
+  if (!set) return [];
+  
+  // Przekonwertuj odpowiedzi na obiekty z punktacją
+  return set.questions.map((q) => ({
+    question: q.question,
+    answers: q.answers.map((answer, index) => ({
+      answer: answer,
+      points: 100 - (index * 10), // 100, 90, 80, 70, 60, 50, 40, 30, 20
+    })),
+  }));
 };
 
 // Export domyślny dla kompatybilności wstecznej

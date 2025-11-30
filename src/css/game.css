@@ -1,0 +1,614 @@
+/* Główny kontener gry */
+.game-container {
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(135deg, var(--charcoal-blue) 0%, var(--verdigris) 100%);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'BPdots', monospace;
+}
+
+/* Ikony i ich kolory */
+.header-icon {
+  color: var(--jasmine);
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.difficulty-stars {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.difficulty-stars.easy {
+  color: var(--verdigris);
+}
+
+.difficulty-stars.medium {
+  color: var(--sandy-brown);
+}
+
+.difficulty-stars.hard {
+  color: var(--burnt-peach);
+}
+
+.check-icon {
+  color: var(--verdigris);
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.instruction-icon {
+  color: var(--sandy-brown);
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.hint-icon {
+  color: var(--jasmine);
+  vertical-align: middle;
+  margin-left: 0.3rem;
+}
+
+.result-icon {
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.trophy-icon {
+  color: var(--jasmine);
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.summary-icon {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Przyciski z ikonami */
+.control-btn svg,
+.buzz-button svg,
+.btn-reset svg,
+.btn-start-board svg {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Nagłówek gry */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  color: white;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.header-title {
+  font-family: 'BPdots', monospace;
+  font-size: 2rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--jasmine);
+  text-align: left;
+}
+
+.header-team {
+  font-family: 'BPdots', monospace;
+  font-size: 1.3rem;
+  color: var(--sandy-brown);
+  background: rgba(244, 162, 97, 0.2);
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(244, 162, 97, 0.3);
+  white-space: nowrap;
+}
+
+.game-code-badge {
+  font-family: 'BPdots', monospace;
+  display: inline-block;
+  background: rgba(233, 196, 106, 0.3);
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  backdrop-filter: blur(10px);
+  margin: 0.5rem;
+  color: var(--jasmine);
+}
+
+.game-info {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.team-badge {
+  font-family: 'BPdots', monospace;
+  display: inline-block;
+  background: rgba(42, 157, 143, 0.3);
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
+  color: white;
+}
+
+/* Sekcja wyboru kategorii */
+.category-selection {
+  width: 100%;
+  max-width: 1200px;
+  background: rgba(38, 70, 83, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.instruction {
+  font-family: 'BPdots', monospace;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+/* Siatka kategorii */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Karta kategorii */
+.category-card {
+  font-family: 'BPdots', monospace;
+  background: linear-gradient(135deg, rgba(42, 157, 143, 0.2) 0%, rgba(38, 70, 83, 0.8) 100%);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+}
+
+.category-card:hover:not(.readonly) {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(42, 157, 143, 0.4);
+  border-color: var(--jasmine);
+}
+
+.category-card.selected {
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
+  border-color: var(--jasmine);
+  color: white;
+  transform: scale(1.05);
+}
+
+.category-card.selected .category-name,
+.category-card.selected .category-difficulty,
+.category-card.selected .category-info {
+  color: white;
+}
+
+.category-card.readonly {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.category-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.category-name {
+  font-family: 'BPdots', monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--jasmine);
+}
+
+.category-difficulty {
+  font-family: 'BPdots', monospace;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.category-info {
+  font-family: 'BPdots', monospace;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Informacja o wyborze */
+.selection-info {
+  font-family: 'BPdots', monospace;
+  background: rgba(42, 157, 143, 0.2);
+  border-left: 4px solid var(--verdigris);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+}
+
+.selection-info strong {
+  color: var(--jasmine);
+  font-size: 1.2rem;
+}
+
+.waiting-text {
+  font-family: 'BPdots', monospace;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Komunikat oczekiwania */
+.waiting-message {
+  font-family: 'BPdots', monospace;
+  text-align: center;
+  padding: 2rem;
+}
+
+.waiting-message p {
+  font-family: 'BPdots', monospace;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 1rem;
+}
+
+/* Spinner */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid var(--jasmine);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* === BUZZ ROUND - HOST === */
+.buzz-round {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.host-question-card {
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.question-text {
+  font-family: 'BPdots', monospace;
+  font-size: 2.5rem;
+  color: var(--jasmine);
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.host-instruction {
+  font-family: 'BPdots', monospace;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+}
+
+.buzz-status {
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buzzed-info {
+  width: 100%;
+}
+
+.buzzed-info-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+}
+
+.buzzed-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'BPdots', monospace;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.buzzed-icon {
+  font-size: 3rem;
+  color: var(--jasmine);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.team-name-display {
+  font-family: 'BPdots', monospace;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--jasmine);
+  background: rgba(42, 157, 143, 0.2);
+  padding: 1.5rem 2rem;
+  border-radius: 15px;
+  border: 3px solid var(--verdigris);
+  white-space: nowrap;
+}
+
+.waiting-buzz {
+  width: 100%;
+}
+
+.pulse-animation {
+  font-size: 4rem;
+  animation: pulse 2s ease-in-out infinite;
+  color: var(--sandy-brown);
+}
+
+.waiting-buzz p {
+  font-family: 'BPdots', monospace;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 1rem;
+}
+
+.btn-reset {
+  font-family: 'BPdots', monospace;
+  background: var(--burnt-peach);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  align-self: center;
+}
+
+.btn-reset:hover {
+  background: #ee5a52;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+.btn-reset:active {
+  transform: translateY(0);
+}
+
+/* Kontener dla przycisków w fazie buzz */
+.buzz-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Przycisk "Przejdź do tablicy" */
+.btn-start-board {
+  font-family: 'BPdots', monospace;
+  background: linear-gradient(135deg, var(--verdigris), var(--sandy-brown));
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
+}
+
+.btn-start-board:hover {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+
+.btn-start-board:active {
+  transform: translateY(0);
+}
+
+/* === BUZZ ROUND - PLAYER === */
+.buzz-round-player {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.buzz-instruction {
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 100%;
+}
+
+.buzz-instruction h2 {
+  font-family: 'BPdots', monospace;
+  font-size: 2rem;
+  color: var(--jasmine);
+  margin-bottom: 1rem;
+}
+
+.buzz-instruction p {
+  font-family: 'BPdots', monospace;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0.5rem 0;
+}
+
+.buzz-hint {
+  font-weight: bold;
+  color: var(--sandy-brown) !important;
+  font-size: 1.3rem !important;
+  margin-top: 1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.buzz-button {
+  font-family: 'BPdots', monospace;
+  padding: 2rem;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: none;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, var(--burnt-peach) 0%, var(--sandy-brown) 100%);
+  color: white;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.buzz-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 15px 50px rgba(255, 71, 87, 0.6);
+}
+
+.buzz-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.buzz-button.buzz-first {
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--jasmine) 100%);
+  animation: celebrate 0.5s ease-in-out;
+  box-shadow: 0 0 60px rgba(42, 157, 143, 0.8);
+}
+
+.buzz-button.buzz-second {
+  background: linear-gradient(135deg, var(--jasmine) 0%, var(--sandy-brown) 100%);
+  color: var(--charcoal-blue);
+  cursor: not-allowed;
+}
+
+.buzz-button.buzz-disabled {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@keyframes celebrate {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2) rotate(-10deg);
+  }
+  75% {
+    transform: scale(1.2) rotate(10deg);
+  }
+}
+
+.buzz-result {
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.buzz-result p {
+  font-family: 'BPdots', monospace;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--jasmine);
+  margin: 0;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 1rem;
+  }
+
+  .game-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .header-team {
+    font-size: 1rem;
+    align-self: flex-end;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .category-card {
+    padding: 1.5rem;
+  }
+
+  .category-name {
+    font-size: 1.3rem;
+  }
+}

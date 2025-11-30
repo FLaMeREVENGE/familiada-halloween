@@ -1,0 +1,47 @@
+/* Card Component Styles */
+.card {
+  background: rgba(38, 70, 83, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(42, 157, 143, 0.2);
+}
+
+.card-hoverable {
+  cursor: pointer;
+}
+
+.card-hoverable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(42, 157, 143, 0.4);
+  border-color: rgba(42, 157, 143, 0.6);
+}
+
+/* Variants */
+.card-default {
+  background: rgba(38, 70, 83, 0.95);
+  border-color: rgba(42, 157, 143, 0.2);
+}
+
+.card-primary {
+  background: linear-gradient(135deg, rgba(42, 157, 143, 0.95) 0%, rgba(38, 70, 83, 0.95) 100%);
+  border-color: rgba(42, 157, 143, 0.5);
+}
+
+.card-accent {
+  background: linear-gradient(135deg, rgba(233, 196, 106, 0.15) 0%, rgba(38, 70, 83, 0.95) 100%);
+  border-color: rgba(233, 196, 106, 0.3);
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-solid {
+  background: #264653;
+  backdrop-filter: none;
+}

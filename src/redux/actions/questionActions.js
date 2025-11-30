@@ -1,49 +1,14 @@
-export const nextQuestion = () => {
-  return {
-    type: "NEXT_QUESTION",
-  };
-};
+// Ten plik jest teraz przestarzały - wszystkie akcje są eksportowane z questionReducer.js
+// Pozostawiam go dla kompatybilności wstecznej
 
-export const transferPoints = (selectedTeam, pointsToTransfer) => {
-  return {
-    type: "TRANSFER_POINTS",
-    payload: { selectedTeam, pointsToTransfer },
-  };
-};
-
-export const resetWrongAnswers = () => ({
-  type: "RESET_WRONG_ANSWERS",
-});
-
-export const resetCorrectAnswers = () => ({
-  type: "RESET_CORRECT_ANSWERS",
-});
-
-export const resetTotalPoints = () => {
-  return {
-    type: "RESET_TOTAL_POINTS",
-  };
-};
-
-export const correctAnswer = (answer) => ({
-  type: "CORRECT_ANSWER",
-  payload: answer,
-});
-
-export const uncorrectAnswer = (incorrectAnswer) => {
-  return {
-    type: "UNCORRECT_ANSWER",
-    payload: incorrectAnswer,
-  };
-};
-
-export const selectedTeam = (teamID) => ({
-  type: "SELECTED_TEAM",
-  payload: teamID,
-});
-
-export const resetGame = () => {
-  return {
-    type: "RESET_GAME",
-  };
-};
+export {
+  nextQuestion,
+  transferPoints,
+  resetWrongAnswers,
+  resetCorrectAnswers,
+  resetTotalPoints,
+  correctAnswer,
+  uncorrectAnswer,
+  selectedTeam,
+  resetGame,
+} from "../reducer/questionReducer";

@@ -158,6 +158,95 @@ export const startGame = async (gameCode) => {
   }
 };
 
+// Wybór kategorii pytań (tylko host)
+export const selectCategory = async (gameCode, category) => {
+  console.log(`[SELECT] Setting category for game ${gameCode}: ${category}`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      selectedCategory: category,
+      categorySelectedAt: new Date().toISOString(),
+      currentQuestionIndex: 0,
+      buzzedTeam: null, // Która drużyna wcisnęła przycisk
+      buzzTimestamp: null,
+    });
+    console.log(`[SELECT] Category ${category} saved to Firestore`);
+  } else {
+    // Demo mode
+    await localGameStorage.updateGame(gameCode, {
+      selectedCategory: category,
+      categorySelectedAt: new Date().toISOString(),
+      currentQuestionIndex: 0,
+      buzzedTeam: null,
+      buzzTimestamp: null,
+    });
+    console.log(`[SELECT] Category ${category} saved to local storage`);
+  }
+};
+
+// Wciśnięcie przycisku przez drużynę (buzz)
+export const buzzIn = async (gameCode, teamId, teamName) => {
+  const timestamp = Date.now();
+  console.log(`[BUZZ] Team ${teamName} (${teamId}) buzzed at ${timestamp}`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    const gameSnap = await getDoc(gameRef);
+    
+    if (gameSnap.exists()) {
+      const gameData = gameSnap.data();
+      
+      // Tylko jeśli nikt jeszcze nie wcisnął
+      if (!gameData.buzzedTeam) {
+        await updateDoc(gameRef, {
+          buzzedTeam: teamId,
+          buzzedTeamName: teamName,
+          buzzTimestamp: timestamp,
+        });
+        console.log(`[BUZZ] ${teamName} buzzed first!`);
+        return { success: true, first: true };
+      } else {
+        console.log(`[BUZZ] ${teamName} was too slow`);
+        return { success: true, first: false };
+      }
+    }
+  } else {
+    // Demo mode
+    const gameData = await localGameStorage.getGame(gameCode);
+    if (gameData && !gameData.buzzedTeam) {
+      await localGameStorage.updateGame(gameCode, {
+        buzzedTeam: teamId,
+        buzzedTeamName: teamName,
+        buzzTimestamp: timestamp,
+      });
+      return { success: true, first: true };
+    }
+    return { success: true, first: false };
+  }
+};
+
+// Reset przycisku buzz (tylko host)
+export const resetBuzz = async (gameCode) => {
+  console.log(`[BUZZ] Resetting buzz for game ${gameCode}`);
+  
+  if (useFirebase) {
+    const gameRef = doc(db, 'games', gameCode);
+    await updateDoc(gameRef, {
+      buzzedTeam: null,
+      buzzedTeamName: null,
+      buzzTimestamp: null,
+    });
+  } else {
+    await localGameStorage.updateGame(gameCode, {
+      buzzedTeam: null,
+      buzzedTeamName: null,
+      buzzTimestamp: null,
+    });
+  }
+  console.log(`[BUZZ] Reset complete`);
+};
+
 // Aktualizacja poprawnej odpowiedzi
 export const updateCorrectAnswer = async (gameCode, answer, points) => {
   const gameRef = doc(db, 'games', gameCode);

@@ -4,6 +4,21 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { getAvailableCategories, getQuestionsByCategory } from "@/utils/questions";
 import { subscribeToGame, buzzIn } from "@/utils/firebaseUtils";
+import { 
+  PiGameControllerFill,
+  PiLightningFill,
+  PiClockCountdownFill,
+  PiCheckBold,
+  PiLockKeyFill,
+  PiTargetFill,
+  PiXBold,
+  PiTrophyFill,
+  PiHandshakeFill,
+  PiConfettiFill,
+  PiStarFill,
+  PiWarningFill
+} from "react-icons/pi";
+import { Navbar } from "@/components";
 import "@/css/game.css";
 import "@/css/board.css";
 
@@ -49,17 +64,26 @@ export default function PlayerGamePage() {
         }
       }
       
-      if (data.selectedCategory && !selectedCategory) {
-        setSelectedCategory(data.selectedCategory);
-        console.log(`[PLAYER] Host selected category: ${data.selectedCategory}`);
-        
-        // Załaduj pytania
-        const categoryQuestions = getQuestionsByCategory(data.selectedCategory);
-        setQuestions(categoryQuestions);
-        
-        if (categoryQuestions.length > 0) {
-          const questionIndex = data.currentQuestionIndex || 0;
-          setCurrentQuestion(categoryQuestions[questionIndex]);
+      if (data.selectedCategory) {
+        if (data.selectedCategory !== selectedCategory) {
+          setSelectedCategory(data.selectedCategory);
+          console.log(`[PLAYER] Host selected category: ${data.selectedCategory}`);
+          
+          // Załaduj pytania
+          const categoryQuestions = getQuestionsByCategory(data.selectedCategory);
+          setQuestions(categoryQuestions);
+          
+          if (categoryQuestions.length > 0) {
+            const questionIndex = data.currentQuestionIndex || 0;
+            setCurrentQuestion(categoryQuestions[questionIndex]);
+          }
+        }
+      } else {
+        // Jeśli nie ma wybranej kategorii (nowa gra), wyczyść stan
+        if (selectedCategory) {
+          setSelectedCategory(null);
+          setQuestions([]);
+          setCurrentQuestion(null);
         }
       }
 
@@ -118,13 +142,13 @@ export default function PlayerGamePage() {
   const getDifficultyStars = (difficulty) => {
     switch (difficulty) {
       case "easy":
-        return "⭐";
+        return <span className="difficulty-stars easy"><PiStarFill /></span>;
       case "medium":
-        return "⭐⭐";
+        return <span className="difficulty-stars medium"><PiStarFill /><PiStarFill /></span>;
       case "hard":
-        return "⭐⭐⭐";
+        return <span className="difficulty-stars hard"><PiStarFill /><PiStarFill /><PiStarFill /></span>;
       default:
-        return "⭐";
+        return <span className="difficulty-stars easy"><PiStarFill /></span>;
     }
   };
 
@@ -142,25 +166,30 @@ export default function PlayerGamePage() {
   };
 
   return (
-    <div className="game-container">
-      {/* Overlay ostrzeżenia */}
-      {gameData?.warningActive && (
-        <div className="warning-overlay">
-          <div className="warning-countdown">{gameData.warningCountdown || 3}</div>
-        </div>
-      )}
+    <>
+      <Navbar />
+      <div className="game-container">
+        {/* Overlay ostrzeżenia */}
+        {gameData?.warningActive && (
+          <div className="warning-overlay">
+            <div className="warning-content">
+              <PiWarningFill className="warning-icon" />
+              <h2 className="warning-text">Podaj szybko odpowiedź!</h2>
+              <div className="progress-bar-container">
+                <div className="progress-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+        )}
 
       <div className="game-header">
-        <h1>🎮 {
-          gamePhase === "category-selection" ? "Oczekiwanie na wybór zestawu" :
+        <h1 className="header-title">
+          {gamePhase === "category-selection" ? "Oczekiwanie na wybór zestawu" :
           gamePhase === "buzz" ? `Pytanie ${(gameData?.currentQuestionIndex || 0) + 1}` :
           gamePhase === "playing" ? `Pytanie ${(gameData?.currentQuestionIndex || 0) + 1}` :
-          "Podsumowanie"
-        }</h1>
-        <div className="game-info">
-          <span className="game-code-badge">Kod gry: {gameCode}</span>
-          <span className="team-badge">Drużyna: {userName}</span>
-        </div>
+          "Podsumowanie"}
+        </h1>
+        <div className="header-team">{userName}</div>
       </div>
 
       {gamePhase === "category-selection" ? (
@@ -177,14 +206,13 @@ export default function PlayerGamePage() {
                 <div className="category-icon">{getDifficultyStars(cat.difficulty)}</div>
                 <h3 className="category-name">{cat.category}</h3>
                 <p className="category-difficulty">{getDifficultyLabel(cat.difficulty)}</p>
-                <p className="category-info">5 pytań</p>
               </div>
             ))}
           </div>
 
           {selectedCategory ? (
             <div className="selection-info">
-              <p>✓ Prowadzący wybrał: <strong>{selectedCategory}</strong></p>
+              <p><PiCheckBold className="check-icon" /> Prowadzący wybrał: <strong>{selectedCategory}</strong></p>
               <p className="waiting-text">Gra zaraz się rozpocznie...</p>
             </div>
           ) : (
@@ -198,9 +226,8 @@ export default function PlayerGamePage() {
         // FAZA 2: Pytanie buzz
         <div className="buzz-round-player">
           <div className="buzz-instruction">
-            <h2>Kto pierwszy odpowie?</h2>
             <p>Prowadzący odczyta pytanie na głos</p>
-            <p className="buzz-hint">Naciśnij przycisk jak najszybciej! ⚡</p>
+            <p className="buzz-hint">Naciśnij przycisk jak najszybciej! <PiLightningFill className="hint-icon" /></p>
           </div>
 
           <button
@@ -212,9 +239,9 @@ export default function PlayerGamePage() {
             onClick={handleBuzz}
             disabled={myTeamBuzzed || buzzedTeam !== null}
           >
-            {isFirst === true ? "✓ PIERWSZA! 🎉" : 
-             isFirst === false ? "⏱️ ZA PÓŹNO" : 
-             buzzedTeam ? "🔒 ZABLOKOWANY" : 
+            {isFirst === true ? <><PiCheckBold /> PIERWSZY! <PiConfettiFill /></> : 
+             isFirst === false ? <><PiClockCountdownFill /> ZA PÓŹNO</> : 
+             buzzedTeam ? <><PiLockKeyFill /> ZABLOKOWANY</> : 
              "NACIŚNIJ!"}
           </button>
 
@@ -222,8 +249,8 @@ export default function PlayerGamePage() {
             <div className="buzz-result">
               <p>
                 {isFirst === true 
-                  ? `🎯 Twoja drużyna była pierwsza!` 
-                  : `⏰ Drużyna "${buzzedTeam}" była szybsza`}
+                  ? <><PiTargetFill className="result-icon" /> Twoja drużyna była pierwsza!</> 
+                  : <><PiClockCountdownFill className="result-icon" /> Drużyna "{buzzedTeam}" była szybsza</>}
               </p>
             </div>
           )}
@@ -241,7 +268,7 @@ export default function PlayerGamePage() {
             {/* 4 błędne po lewej */}
             <div className="wrong-answers-left">
               {Array.from({ length: Math.min(gameData?.wrongAnswersCount || 0, 4) }).map((_, i) => (
-                <span key={i} className="wrong-x-large">✖</span>
+                <span key={i} className="wrong-x-large"><PiXBold /></span>
               ))}
             </div>
 
@@ -279,7 +306,7 @@ export default function PlayerGamePage() {
             {/* 5-ta błędna po prawej */}
             <div className="wrong-answers-right">
               {(gameData?.wrongAnswersCount || 0) >= 5 && (
-                <span className="wrong-x-large">✖</span>
+                <span className="wrong-x-large"><PiXBold /></span>
               )}
             </div>
           </div>
@@ -288,18 +315,14 @@ export default function PlayerGamePage() {
           {gameData?.pointsTransferred && gameData?.lastPointsRecipient && (
             <div className="points-transfer-info">
               <div className="transfer-card">
-                <h3>🏆 Punkty przekazane!</h3>
-                <p><strong>{gameData.lastPointsRecipient}</strong> otrzymuje <strong>{gameData.lastPointsAmount}</strong> punktów</p>
+                <h3><PiTrophyFill className="trophy-icon" /> Punkty przekazane!</h3>
+                <p><strong>{gameData.lastPointsRecipient}</strong> otrzymują <strong>{gameData.lastPointsAmount}</strong> punktów</p>
               </div>
             </div>
           )}
 
           {/* Pasek statusu */}
           <div className="status-bar">
-            <div className="status-item">
-              <span className="status-label">Błędne odpowiedzi:</span>
-              <span className="status-value"> {gameData?.wrongAnswersCount || 0}/5</span>
-            </div>
             <div className="status-item">
               <span className="status-label">Punkty w rundzie:</span>
               <span className="status-value points">{gameData?.totalPoints || 0}</span>
@@ -319,11 +342,11 @@ export default function PlayerGamePage() {
             console.log(`[PLAYER SUMMARY] My team: ${myTeamNumber}, My score: ${myScore}, Opponent: ${opponentScore}`);
             
             if (team1Score === team2Score) {
-              return <h2 className="summary-title">🤝 Remis!</h2>;
+              return <h2 className="summary-title"><PiHandshakeFill className="summary-icon" /> Remis!</h2>;
             } else if (myScore > opponentScore) {
-              return <h2 className="summary-title winner">🎉 Gratulacje! Wygraliście!</h2>;
+              return <h2 className="summary-title winner"><PiConfettiFill className="summary-icon" /> Gratulacje! Wygraliście!</h2>;
             } else {
-              return <h2 className="summary-title loser">😔 Niestety przegraliście</h2>;
+              return <h2 className="summary-title loser">Niestety przegraliście</h2>;
             }
           })()}
           
@@ -341,6 +364,7 @@ export default function PlayerGamePage() {
           <p style={{ marginTop: "2rem", color: "#666" }}>Czekaj na decyzję prowadzącego...</p>
         </div>
       ) : null}
-    </div>
+      </div>
+    </>
   );
 }

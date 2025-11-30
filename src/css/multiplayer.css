@@ -87,7 +87,7 @@
 
 /* Host Page Styles */
 .host-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,7 +140,7 @@
 
 .code-instruction {
   font-size: 0.9rem;
-  color: #aaa;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .players-section h3 {
@@ -159,7 +159,7 @@
 }
 
 .no-players {
-  color: #888;
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
   padding: 2rem;
   font-style: italic;
@@ -249,7 +249,7 @@
 
 /* Join Page Styles */
 .join-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -303,6 +303,11 @@
   font-size: 1.1rem;
   font-family: 'BPdots', monospace;
   transition: all 0.3s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 1;
 }
 
 .form-input:focus {

@@ -1,6 +1,6 @@
 /* Główny kontener gry */
 .game-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   background: linear-gradient(135deg, var(--charcoal-blue) 0%, var(--verdigris) 100%);
   padding: 2rem;
   display: flex;
@@ -9,18 +9,104 @@
   font-family: 'BPdots', monospace;
 }
 
-/* Nagłówek gry */
-.game-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: white;
+/* Ikony i ich kolory */
+.header-icon {
+  color: var(--jasmine);
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }
 
-.game-header h1 {
+.difficulty-stars {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.difficulty-stars.easy {
+  color: var(--verdigris);
+}
+
+.difficulty-stars.medium {
+  color: var(--sandy-brown);
+}
+
+.difficulty-stars.hard {
+  color: var(--burnt-peach);
+}
+
+.check-icon {
+  color: var(--verdigris);
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.instruction-icon {
+  color: var(--sandy-brown);
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.hint-icon {
+  color: var(--jasmine);
+  vertical-align: middle;
+  margin-left: 0.3rem;
+}
+
+.result-icon {
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.trophy-icon {
+  color: var(--jasmine);
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.summary-icon {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Przyciski z ikonami */
+.control-btn svg,
+.buzz-button svg,
+.btn-reset svg,
+.btn-start-board svg {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Nagłówek gry */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  color: white;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.header-title {
   font-family: 'BPdots', monospace;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--jasmine);
+  text-align: left;
+}
+
+.header-team {
+  font-family: 'BPdots', monospace;
+  font-size: 1.3rem;
+  color: var(--sandy-brown);
+  background: rgba(244, 162, 97, 0.2);
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(244, 162, 97, 0.3);
+  white-space: nowrap;
 }
 
 .game-code-badge {
@@ -250,8 +336,26 @@
   width: 100%;
 }
 
-.buzzed-animation {
-  font-size: 5rem;
+.buzzed-info-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+}
+
+.buzzed-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'BPdots', monospace;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.buzzed-icon {
+  font-size: 3rem;
+  color: var(--jasmine);
   animation: pulse 1s ease-in-out infinite;
 }
 
@@ -264,13 +368,6 @@
   }
 }
 
-.buzzed-info h3 {
-  font-family: 'BPdots', monospace;
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 1rem 0;
-}
-
 .team-name-display {
   font-family: 'BPdots', monospace;
   font-size: 2.5rem;
@@ -279,9 +376,8 @@
   background: rgba(42, 157, 143, 0.2);
   padding: 1.5rem 2rem;
   border-radius: 15px;
-  display: inline-block;
-  margin-top: 1rem;
   border: 3px solid var(--verdigris);
+  white-space: nowrap;
 }
 
 .waiting-buzz {
@@ -291,6 +387,7 @@
 .pulse-animation {
   font-size: 4rem;
   animation: pulse 2s ease-in-out infinite;
+  color: var(--sandy-brown);
 }
 
 .waiting-buzz p {
@@ -398,10 +495,15 @@
   color: var(--sandy-brown) !important;
   font-size: 1.3rem !important;
   margin-top: 1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .buzz-button {
   font-family: 'BPdots', monospace;
+  padding: 2rem;
   width: 300px;
   height: 300px;
   border-radius: 50%;
@@ -414,6 +516,10 @@
   background: linear-gradient(135deg, var(--burnt-peach) 0%, var(--sandy-brown) 100%);
   color: white;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .buzz-button:hover:not(:disabled) {
@@ -478,8 +584,19 @@
     padding: 1rem;
   }
 
-  .game-header h1 {
-    font-size: 1.8rem;
+  .game-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .header-team {
+    font-size: 1rem;
+    align-self: flex-end;
   }
 
   .categories-grid {

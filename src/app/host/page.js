@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { createGame as createGameAction } from "@/redux/reducer/gameSlice";
 import { createGame, generateUserId, startGame, subscribeToGame } from "@/utils/firebaseUtils";
+import { Navbar } from "@/components";
+import "@/css/multiplayer.css";
 
 export default function HostPage() {
   const router = useRouter();
@@ -83,58 +85,64 @@ export default function HostPage() {
 
   if (isCreating) {
     return (
-      <div className="host-container">
-        <div className="loading">Tworzenie gry...</div>
-      </div>
+      <>
+        <Navbar />
+        <div className="host-container">
+          <div className="loading">Tworzenie gry...</div>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="host-container">
-      <div className="host-content">
-        <h1 className="host-title">POCZEKALNIA</h1>
-        
-        <div className="game-code-display">
-          <p className="code-label">Kod gry:</p>
-          <h2 className="game-code">{gameState.gameCode || '----'}</h2>
-          <p className="code-instruction">Podaj ten kod drużynom</p>
-        </div>
+    <>
+      <Navbar />
+      <div className="host-container">
+        <div className="host-content">
+          <h1 className="host-title">POCZEKALNIA</h1>
+          
+          <div className="game-code-display">
+            <p className="code-label">Kod gry:</p>
+            <h2 className="game-code">{gameState.gameCode || '----'}</h2>
+            <p className="code-instruction">Podaj ten kod drużynom</p>
+          </div>
 
-        {error && <div className="error-message">{error}</div>}
+          {error && <div className="error-message">{error}</div>}
 
-        <div className="players-section">
-          <h3>Drużyny ({teams.length}/2 minimum)</h3>
-          <div className="players-list">
-            {teams.length === 0 ? (
-              <p className="no-players">Oczekiwanie na drużyny...</p>
-            ) : (
-              teams.map((team, index) => (
-                <div key={team.id} className="player-card">
-                  <span className="player-name">
-                    {index === 0 ? '🔴' : '🔵'} {team.name}
-                  </span>
-                </div>
-              ))
-            )}
+          <div className="players-section">
+            <h3>Drużyny ({teams.length}/2)</h3>
+            <div className="players-list">
+              {teams.length === 0 ? (
+                <p className="no-players">Oczekiwanie na drużyny...</p>
+              ) : (
+                teams.map((team, index) => (
+                  <div key={team.id} className="player-card">
+                    <span className="player-name">
+                      {index === 0 ? '🔴' : '🔵'} {team.name}
+                    </span>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          <div className="host-actions">
+            <button 
+              className="btn-start"
+              onClick={handleStartGame}
+              disabled={teams.length < 2}
+            >
+              {teams.length < 2 ? `Czekaj na drużyny (${teams.length}/2)` : 'Rozpocznij grę'}
+            </button>
+            <button 
+              className="btn-cancel"
+              onClick={handleCancel}
+            >
+              Anuluj
+            </button>
           </div>
         </div>
-
-        <div className="host-actions">
-          <button 
-            className="btn-start"
-            onClick={handleStartGame}
-            disabled={teams.length < 2}
-          >
-            {teams.length < 2 ? `Czekaj na drużyny (${teams.length}/2)` : 'Rozpocznij grę'}
-          </button>
-          <button 
-            className="btn-cancel"
-            onClick={handleCancel}
-          >
-            Anuluj
-          </button>
-        </div>
       </div>
-    </div>
+    </>
   );
 }

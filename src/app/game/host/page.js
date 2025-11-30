@@ -18,6 +18,26 @@ import {
   endGame,
   restartGame
 } from "@/utils/firebaseUtils";
+import { 
+  PiGameControllerFill,
+  PiSpeakerHighFill,
+  PiClockCountdownFill,
+  PiLightningFill,
+  PiArrowRightBold,
+  PiArrowClockwiseBold,
+  PiXBold,
+  PiWarningFill,
+  PiTrophyFill,
+  PiFlagCheckeredFill,
+  PiHandshakeFill,
+  PiXCircleFill,
+  PiStarFill,
+  PiCheckBold,
+  PiNumberCircleOneFill,
+  PiNumberCircleTwoFill,
+  PiChartBarFill
+} from "react-icons/pi";
+import { Navbar } from "@/components";
 import "@/css/game.css";
 import "@/css/board.css";
 
@@ -229,13 +249,13 @@ export default function HostGamePage() {
   const getDifficultyStars = (difficulty) => {
     switch (difficulty) {
       case "easy":
-        return "⭐";
+        return <span className="difficulty-stars easy"><PiStarFill /></span>;
       case "medium":
-        return "⭐⭐";
+        return <span className="difficulty-stars medium"><PiStarFill /><PiStarFill /></span>;
       case "hard":
-        return "⭐⭐⭐";
+        return <span className="difficulty-stars hard"><PiStarFill /><PiStarFill /><PiStarFill /></span>;
       default:
-        return "⭐";
+        return <span className="difficulty-stars easy"><PiStarFill /></span>;
     }
   };
 
@@ -253,22 +273,30 @@ export default function HostGamePage() {
   };
 
   return (
-    <div className="game-container">
-      {/* Overlay ostrzeżenia */}
-      {gameData?.warningActive && (
-        <div className="warning-overlay">
-          <div className="warning-countdown">{gameData.warningCountdown || 3}</div>
-        </div>
-      )}
+    <>
+      <Navbar />
+      <div className="game-container">
+        {/* Overlay ostrzeżenia */}
+        {gameData?.warningActive && (
+          <div className="warning-overlay">
+            <div className="warning-content">
+              <PiWarningFill className="warning-icon" />
+              <h2 className="warning-text">Podaj szybko odpowiedź!</h2>
+              <div className="progress-bar-container">
+                <div className="progress-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+        )}
 
       <div className="game-header">
-        <h1>🎮 {
-          gamePhase === "category-selection" ? "Wybierz zestaw pytań" :
+        <h1 className="header-title">
+          {gamePhase === "category-selection" ? "Wybierz zestaw pytań" :
           gamePhase === "buzz" ? `Pytanie ${(gameData?.currentQuestionIndex || 0) + 1}` :
           gamePhase === "playing" ? `Pytanie ${(gameData?.currentQuestionIndex || 0) + 1}` :
-          "Podsumowanie"
-        }</h1>
-        <div className="game-code-badge">Kod gry: {gameCode}</div>
+          "Podsumowanie"}
+        </h1>
+        <div className="header-team">Prowadzący</div>
       </div>
 
       {gamePhase === "category-selection" ? (
@@ -286,14 +314,13 @@ export default function HostGamePage() {
                 <div className="category-icon">{getDifficultyStars(cat.difficulty)}</div>
                 <h3 className="category-name">{cat.category}</h3>
                 <p className="category-difficulty">{getDifficultyLabel(cat.difficulty)}</p>
-                <p className="category-info">5 pytań</p>
               </div>
             ))}
           </div>
 
           {selectedCategory && (
             <div className="selection-info">
-              <p>✓ Wybrano: <strong>{selectedCategory}</strong></p>
+              <p><PiCheckBold className="check-icon" /> Wybrano: <strong>{selectedCategory}</strong></p>
               <p className="waiting-text">Ładowanie gry...</p>
             </div>
           )}
@@ -303,19 +330,23 @@ export default function HostGamePage() {
         <div className="buzz-round">
           <div className="host-question-card">
             <h2 className="question-text">{currentQuestion?.question}</h2>
-            <p className="host-instruction">📢 Przeczytaj pytanie na głos drużynom</p>
+            <p className="host-instruction"><PiSpeakerHighFill className="instruction-icon" /> Przeczytaj pytanie na głos drużynom</p>
           </div>
 
           <div className="buzz-status">
             {buzzedTeam ? (
               <div className="buzzed-info">
-                <div className="buzzed-animation">⚡</div>
-                <h3>Drużyna która wcisnęła pierwsza:</h3>
-                <div className="team-name-display">{buzzedTeam}</div>
+                <div className="buzzed-info-content">
+                  <div className="buzzed-label">
+                    <PiLightningFill className="buzzed-icon" />
+                    <span>Drużyna która wcisnęła pierwsza:</span>
+                  </div>
+                  <div className="team-name-display">{buzzedTeam}</div>
+                </div>
               </div>
             ) : (
               <div className="waiting-buzz">
-                <div className="pulse-animation">⏱️</div>
+                <div className="pulse-animation"><PiClockCountdownFill /></div>
                 <p>Czekam na naciśnięcie przycisku przez drużyny...</p>
               </div>
             )}
@@ -326,11 +357,11 @@ export default function HostGamePage() {
               className="btn-reset"
               onClick={handleResetBuzz}
             >
-              🔄 Reset przycisku
+              <PiArrowClockwiseBold /> Reset przycisku
             </button>
             {buzzedTeam && (
               <button className="btn-start-board" onClick={handleStartGameBoard}>
-                ➡️ Przejdź do tablicy
+                <PiArrowRightBold /> Przejdź do tablicy
               </button>
             )}
           </div>
@@ -348,7 +379,7 @@ export default function HostGamePage() {
             {/* 4 błędne po lewej */}
             <div className="wrong-answers-left">
               {Array.from({ length: Math.min(gameData?.wrongAnswersCount || 0, 4) }).map((_, i) => (
-                <span key={i} className="wrong-x-large">✖</span>
+                <span key={i} className="wrong-x-large"><PiXBold /></span>
               ))}
             </div>
 
@@ -383,7 +414,7 @@ export default function HostGamePage() {
             {/* 5-ta błędna po prawej */}
             <div className="wrong-answers-right">
               {(gameData?.wrongAnswersCount || 0) >= 5 && (
-                <span className="wrong-x-large">✖</span>
+                <span className="wrong-x-large"><PiXBold /></span>
               )}
             </div>
           </div>
@@ -392,10 +423,6 @@ export default function HostGamePage() {
           <div className="host-controls">
             <div className="status-bar">
               <div className="status-item">
-                <span className="status-label">Błędne odpowiedzi:</span>
-                <span className="status-value"> {gameData?.wrongAnswersCount || 0}/5</span>
-              </div>
-              <div className="status-item">
                 <span className="status-label">Punkty w rundzie:</span>
                 <span className="status-value points">{gameData?.totalPoints || 0}</span>
               </div>
@@ -403,16 +430,16 @@ export default function HostGamePage() {
 
             <div className="controls-section">
               <button className="control-btn btn-wrong" onClick={handleWrongAnswer}>
-                ✖ Błędna odpowiedź
+                <PiXCircleFill /> Błędna odpowiedź
               </button>
               <button 
                 className="control-btn btn-warning" 
                 onClick={handleToggleWarning}
               >
-                ⏰ {gameData?.warningActive ? "Zatrzymaj ostrzeżenie" : "Ostrzeżenie"}
+                <PiWarningFill /> {gameData?.warningActive ? "Zatrzymaj ostrzeżenie" : "Ostrzeżenie"}
               </button>
               <button className="control-btn btn-reset-wrong" onClick={handleResetWrong}>
-                🔄 Reset błędnych
+                <PiArrowClockwiseBold /> Reset błędnych
               </button>
             </div>
 
@@ -426,7 +453,7 @@ export default function HostGamePage() {
                     gameData?.revealedAnswers?.length === currentQuestion?.answers?.length)
                 }
               >
-                🏆 Przekaż punkty - {gameData?.team1Name || "Drużyna 1"}
+                <PiTrophyFill /> Przekaż punkty - {gameData?.team1Name || "Drużyna 1"}
               </button>
               <button 
                 className="control-btn btn-transfer" 
@@ -437,7 +464,7 @@ export default function HostGamePage() {
                     gameData?.revealedAnswers?.length === currentQuestion?.answers?.length)
                 }
               >
-                🏆 Przekaż punkty - {gameData?.team2Name || "Drużyna 2"}
+                <PiTrophyFill /> Przekaż punkty - {gameData?.team2Name || "Drużyna 2"}
               </button>
             </div>
 
@@ -448,7 +475,7 @@ export default function HostGamePage() {
                   onClick={handleNextQuestion}
                   disabled={!gameData?.pointsTransferred}
                 >
-                  ➡️ Przejdź do następnego pytania
+                  <PiArrowRightBold /> Przejdź do następnego pytania
                 </button>
               ) : (
                 <button 
@@ -456,7 +483,7 @@ export default function HostGamePage() {
                   onClick={handleNextQuestion}
                   disabled={!gameData?.pointsTransferred}
                 >
-                  🏁 Przejdź do podsumowania
+                  <PiFlagCheckeredFill /> Przejdź do podsumowania
                 </button>
               )}
             </div>
@@ -476,9 +503,9 @@ export default function HostGamePage() {
             console.log(`[SUMMARY HOST] ========================`);
             
             if (team1Score === team2Score) {
-              return <h2 className="summary-title">🤝 Remis!</h2>;
+              return <h2 className="summary-title"><PiHandshakeFill className="summary-icon" /> Remis!</h2>;
             } else {
-              return <h2 className="summary-title">🏁 Koniec Gry!</h2>;
+              return <h2 className="summary-title"><PiFlagCheckeredFill className="summary-icon" /> Koniec Gry!</h2>;
             }
           })()}
           
@@ -495,14 +522,15 @@ export default function HostGamePage() {
 
           <div className="summary-actions">
             <button className="control-btn btn-next-question" onClick={handleRestartGame}>
-              🔄 Rozpocznij kolejną grę
+              <PiArrowClockwiseBold /> Rozpocznij kolejną grę
             </button>
             <button className="control-btn btn-wrong" onClick={handleEndGame}>
-              ❌ Zakończ grę
+              <PiXCircleFill /> Zakończ grę
             </button>
           </div>
         </div>
       ) : null}
-    </div>
+      </div>
+    </>
   );
 }

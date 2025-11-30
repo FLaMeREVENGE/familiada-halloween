@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setMode, leaveGame } from "@/redux/reducer/gameSlice";
+import { PiGameControllerFill, PiUsersFill } from "react-icons/pi";
 import "./home.css";
 
 export default function Home() {
@@ -36,7 +37,7 @@ export default function Home() {
             className="mode-button host-button"
             onClick={handleCreateGame}
           >
-            <div className="button-icon">🎮</div>
+            <div className="button-icon"><PiGameControllerFill size={48} /></div>
             <div className="button-text">
               <h2>Stwórz grę</h2>
               <p>jako prowadzący</p>
@@ -47,10 +48,10 @@ export default function Home() {
             className="mode-button player-button"
             onClick={handleJoinGame}
           >
-            <div className="button-icon">👥</div>
+            <div className="button-icon"><PiUsersFill size={48} /></div>
             <div className="button-text">
               <h2>Dołącz do gry</h2>
-              <p>jako gracz</p>
+              <p>jako drużyna</p>
             </div>
           </button>
         </div>

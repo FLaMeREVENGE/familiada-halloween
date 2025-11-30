@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { joinGame as joinGameAction } from "@/redux/reducer/gameSlice";
 import { joinGame, subscribeToGame } from "@/utils/firebaseUtils";
+import { Navbar } from "@/components";
+import "@/css/multiplayer.css";
 
 export default function JoinPage() {
   const router = useRouter();
@@ -71,6 +73,7 @@ export default function JoinPage() {
       <div className="join-container">
         <div className="join-content">
           <h1>Oczekiwanie na rozpoczęcie gry...</h1>
+          <br />
           <p>Prowadzący wkrótce rozpocznie rozgrywkę</p>
           <div className="loading-spinner"></div>
         </div>
@@ -79,7 +82,9 @@ export default function JoinPage() {
   }
 
   return (
-    <div className="join-container">
+    <>
+      <Navbar />
+      <div className="join-container">
       <div className="join-content">
         <h1 className="join-title">DOŁĄCZ JAKO DRUŻYNA</h1>
         
@@ -110,9 +115,6 @@ export default function JoinPage() {
               maxLength={30}
               disabled={isJoining}
             />
-            <small style={{color: '#888', fontSize: '0.9rem', marginTop: '0.5rem', display: 'block'}}>
-              💡 Potrzebne są minimum 2 drużyny do rozpoczęcia gry
-            </small>
           </div>
 
           {error && <div className="error-message">{error}</div>}
@@ -136,6 +138,7 @@ export default function JoinPage() {
           </div>
         </form>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

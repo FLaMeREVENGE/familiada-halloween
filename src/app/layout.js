@@ -7,7 +7,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pl">
       <head>
-        <title>Familiada HALLOWEEN 2.0</title>
+        <title>Familiada</title>
       </head>
       <body>
         <Provider store={store}>

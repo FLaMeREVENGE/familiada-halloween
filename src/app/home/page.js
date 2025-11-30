@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setMode, leaveGame } from "@/redux/reducer/gameSlice";
+import "./home.css";
 
 export default function Home() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <div className="home-content">
-        <h1 className="home-title">FAMILIADA HALLOWEEN 2.0</h1>
+        <h1 className="home-title">FAMILIADA</h1>
         <p className="home-subtitle">Wybierz tryb gry</p>
         
         <div className="button-container">
@@ -55,7 +56,22 @@ export default function Home() {
         </div>
 
         <div className="home-footer">
-          <p>Wersja 2.0 - Multiplayer Edition</p>
+          <p>
+            © 2025 Familiada. Gra stworzona przez{" "}
+            <a 
+              href="https://www.rip-tear.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-link"
+            >
+              <img 
+                src="https://www.rip-tear.com/favicon.ico" 
+                alt="RIP & Tear" 
+                className="footer-icon"
+              />
+              RIP & Tear
+            </a>
+          </p>
         </div>
       </div>
     </div>

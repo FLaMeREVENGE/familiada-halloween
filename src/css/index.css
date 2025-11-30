@@ -1,24 +1,34 @@
 @import './multiplayer.css';
 
+/* Color Palette Variables */
 :root {
-    color: #ffa500;
-    background-image: url('https://cdn.suwalls.com/wallpapers/holidays/dark-halloween-pattern-49196-3840x2160.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    padding: 80px;
-    margin-top: -60px;
+    /* Primary Colors */
+    --charcoal-blue: #264653;
+    --verdigris: #2a9d8f;
+    --jasmine: #e9c46a;
+    --sandy-brown: #f4a261;
+    --burnt-peach: #e76f51;
+    
+    /* Gradient Background */
+    --bg-gradient: linear-gradient(135deg, #264653 0%, #2a9d8f 100%);
+    
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #e9c46a;
+    --text-dark: #264653;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
 }
 
-
-@font-face {
-    font-family: 'Starting Machine';
-    src: url('StartingMachine.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
+/* Fonts */
 @font-face {
     font-family: 'BPdots';
     src: url('BPdots.ttf') format('truetype');
@@ -27,12 +37,26 @@
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Vexler Slip';
-    src: url('VexlerSlip-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'BPdots', monospace;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
 }
 
 
@@ -47,7 +71,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Starting Machine';
+    font-family: 'BPdots', monospace;
     padding: 20px;
     font-size: 130px;
 }
@@ -60,7 +84,7 @@
     color: rgb(224, 196, 175);
     background: linear-gradient(97deg, rgba(0, 0, 0, 1) 0%, rgba(255, 128, 41, 1) 100%);
     padding: 10px;
-    font-family: 'Vexler Slip';
+    font-family: 'BPdots', monospace;
     padding-left: 30px;
     letter-spacing: 2px;
     border: orange solid;
@@ -142,7 +166,7 @@
     width: 20%;
     padding: 40px;
     font-size: 30px;
-    font-family: 'BPdots';
+    font-family: 'BPdots', monospace;
     color: orange;
 }
 
@@ -155,7 +179,7 @@
     font-size: 30px;
     text-align: end;
     border: orange solid 2px;
-    font-family: 'Starting Machine';
+    font-family: 'BPdots', monospace;
 }
 
 .familiada__players {
@@ -182,7 +206,7 @@
 .familiada__players_name {
     font-size: 30px;
     padding: 20px;
-    font-family: 'Starting Machine';
+    font-family: 'BPdots', monospace;
 }
 
 .familiada__players_name_selected {
@@ -230,7 +254,7 @@
     font-size: 30px;
     text-align: end;
     border: orange solid 2px;
-    font-family: 'Starting Machine';
+    font-family: 'BPdots', monospace;
 
 }
 
@@ -308,7 +332,7 @@
 
 .avatar-number{
     font-size: 80px;
-    font-family: 'Starting Machine';
+    font-family: 'BPdots', monospace;
     background-color: rgba(70, 36, 13, 1);
     padding: 10px;
     border: orange solid;
@@ -317,7 +341,7 @@
 
 .avatar-number_first{
     font-size: 80px;
-    font-family: 'Starting Machine';
+    font-family: 'BPdots', monospace;
     background-color: rgb(0, 116, 12);
     padding: 10px;
     border: rgb(17, 255, 0) solid;
@@ -327,7 +351,7 @@
 
 .modal_timer{
     font-size: 60px;
-    font-family: 'Starting Machine';
+    font-family: 'BPdots', monospace;
     background-color: rgb(70, 13, 13);
     padding: 10px;
     border-radius: 10px;
@@ -340,7 +364,7 @@
 
 .modal_question{
     font-size: 80px;
-    font-family: 'Vexler Slip';
+    font-family: 'BPdots', monospace;
     background-color: rgba(70, 36, 13, 1);
     padding: 20px;
     border-radius: 10px;

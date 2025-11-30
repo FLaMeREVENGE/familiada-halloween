@@ -9,7 +9,8 @@
 
 /* Pytanie główne */
 .main-question-card {
-  background: white;
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -17,8 +18,9 @@
 }
 
 .main-question-text {
+  font-family: 'BPdots', monospace;
   font-size: 2.2rem;
-  color: #333;
+  color: var(--jasmine);
   font-weight: bold;
   margin: 0;
 }
@@ -40,25 +42,28 @@
 }
 
 .wrong-x-large {
+  font-family: 'BPdots', monospace;
   font-size: 4rem;
-  color: #ff6b6b;
+  color: var(--burnt-peach);
   text-align: center;
   animation: wrongPop 0.3s ease-out;
-  text-shadow: 0 4px 8px rgba(255, 107, 107, 0.5);
+  text-shadow: 0 4px 8px rgba(231, 111, 81, 0.5);
 }
 
 .answers-grid {
+  font-family: 'BPdots', monospace;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
-  background: white;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .answer-card {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'BPdots', monospace;
+  background: linear-gradient(135deg, rgba(42, 157, 143, 0.3) 0%, rgba(38, 70, 83, 0.8) 100%);
   border-radius: 12px;
   padding: 1.5rem;
   display: flex;
@@ -72,12 +77,12 @@
 
 .answer-card:hover:not(.revealed) {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  border-color: #667eea;
+  box-shadow: 0 8px 20px rgba(42, 157, 143, 0.3);
+  border-color: var(--jasmine);
 }
 
 .answer-card.revealed {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
   color: white;
   cursor: default;
   animation: revealAnswer 0.5s ease-out;
@@ -105,9 +110,10 @@
 }
 
 .answer-number {
+  font-family: 'BPdots', monospace;
   font-size: 1.8rem;
   font-weight: bold;
-  color: #667eea;
+  color: var(--jasmine);
   min-width: 30px;
 }
 
@@ -116,10 +122,11 @@
 }
 
 .answer-text {
+  font-family: 'BPdots', monospace;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1a1a;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .answer-card.revealed .answer-text {
@@ -128,10 +135,11 @@
 }
 
 .answer-points {
+  font-family: 'BPdots', monospace;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #667eea;
-  background: rgba(255, 255, 255, 0.5);
+  color: var(--jasmine);
+  background: rgba(233, 196, 106, 0.2);
   padding: 0.5rem 1rem;
   border-radius: 25px;
 }
@@ -162,7 +170,8 @@
 
 /* Panel kontrolny hosta */
 .host-controls {
-  background: white;
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -178,6 +187,7 @@
 }
 
 .control-btn {
+  font-family: 'BPdots', monospace;
   padding: 1rem 2rem;
   border: none;
   border-radius: 50px;
@@ -205,13 +215,13 @@
 }
 
 .btn-wrong {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  background: linear-gradient(135deg, var(--burnt-peach) 0%, #c44536 100%);
   color: white;
 }
 
 .btn-warning {
-  background: linear-gradient(135deg, #ffd93d 0%, #ffbe0b 100%);
-  color: #333;
+  background: linear-gradient(135deg, var(--jasmine) 0%, var(--sandy-brown) 100%);
+  color: var(--charcoal-blue);
 }
 
 .btn-reset-wrong {
@@ -220,26 +230,27 @@
 }
 
 .btn-transfer {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
   color: white;
   font-size: 1.2rem;
 }
 
 .btn-next-question {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--jasmine) 100%);
   color: white;
   font-size: 1.2rem;
 }
 
 .btn-summary {
-  background: linear-gradient(135deg, #ff9800 0%, #ff6f00 100%);
+  background: linear-gradient(135deg, var(--sandy-brown) 0%, var(--burnt-peach) 100%);
   color: white;
   font-size: 1.2rem;
 }
 
 /* Pasek statusu */
 .status-bar {
-  background: white;
+  font-family: 'BPdots', monospace;
+  background: rgba(42, 157, 143, 0.2);
   border-radius: 20px;
   padding: 1.5rem 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -257,20 +268,22 @@
 }
 
 .status-label {
+  font-family: 'BPdots', monospace;
   font-size: 1rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 600;
 }
 
 .status-value {
+  font-family: 'BPdots', monospace;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: var(--jasmine);
 }
 
 .status-value.points {
-  color: #667eea;
-  background: #e8eaf6;
+  color: var(--jasmine);
+  background: rgba(233, 196, 106, 0.2);
   padding: 0.5rem 1rem;
   border-radius: 25px;
 }
@@ -282,8 +295,9 @@
 }
 
 .wrong-x {
+  font-family: 'BPdots', monospace;
   font-size: 2.5rem;
-  color: #ff6b6b;
+  color: var(--burnt-peach);
   animation: wrongPop 0.3s ease-out;
 }
 
@@ -306,7 +320,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 107, 107, 0.95);
+  background: rgba(231, 111, 81, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,6 +338,7 @@
 }
 
 .warning-countdown {
+  font-family: 'BPdots', monospace;
   font-size: 15rem;
   font-weight: bold;
   color: white;
@@ -345,9 +360,10 @@
 
 /* Podsumowanie gry */
 .game-summary {
+  font-family: 'BPdots', monospace;
   width: 100%;
   max-width: 800px;
-  background: white;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 3rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -355,9 +371,10 @@
 }
 
 .summary-title {
+  font-family: 'BPdots', monospace;
   font-size: 3rem;
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--jasmine);
 }
 
 .summary-title.winner {
@@ -376,27 +393,31 @@
 }
 
 .team-score-card {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'BPdots', monospace;
+  background: linear-gradient(135deg, rgba(42, 157, 143, 0.3) 0%, rgba(38, 70, 83, 0.8) 100%);
   padding: 2rem;
   border-radius: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: white;
 }
 
 .team-score-card.winner-team {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
   color: white;
   transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 10px 30px rgba(42, 157, 143, 0.4);
 }
 
 .team-score-name {
+  font-family: 'BPdots', monospace;
   font-size: 1.8rem;
   font-weight: bold;
 }
 
 .team-score-points {
+  font-family: 'BPdots', monospace;
   font-size: 2.5rem;
   font-weight: bold;
 }
@@ -492,12 +513,13 @@
 }
 
 .transfer-card {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  font-family: 'BPdots', monospace;
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
   color: white;
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 10px 30px rgba(42, 157, 143, 0.4);
   animation: celebratePulse 1s ease-in-out infinite;
 }
 
@@ -511,16 +533,19 @@
 }
 
 .transfer-card h3 {
+  font-family: 'BPdots', monospace;
   margin: 0 0 1rem 0;
   font-size: 2rem;
 }
 
 .transfer-card p {
+  font-family: 'BPdots', monospace;
   margin: 0;
   font-size: 1.3rem;
 }
 
 .transfer-card strong {
+  font-family: 'BPdots', monospace;
   font-size: 1.5rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

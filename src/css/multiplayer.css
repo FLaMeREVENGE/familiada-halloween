@@ -4,8 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, var(--charcoal-blue) 0%, var(--verdigris) 100%);
   padding: 20px;
+  font-family: 'BPdots', monospace;
 }
 
 .home-content {
@@ -15,15 +16,17 @@
 }
 
 .home-title {
+  font-family: 'BPdots', monospace;
   font-size: 3rem;
-  color: #ff6b35;
+  color: var(--jasmine);
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .home-subtitle {
+  font-family: 'BPdots', monospace;
   font-size: 1.5rem;
-  color: #e8e8e8;
+  color: #ffffff;
   margin-bottom: 3rem;
 }
 
@@ -42,7 +45,7 @@
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: inherit;
+  font-family: 'BPdots', monospace;
   text-align: left;
   gap: 1.5rem;
 }
@@ -53,11 +56,11 @@
 }
 
 .host-button {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--charcoal-blue) 100%);
 }
 
 .player-button {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, var(--sandy-brown) 0%, var(--burnt-peach) 100%);
 }
 
 .button-icon {
@@ -88,8 +91,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, var(--charcoal-blue) 0%, var(--verdigris) 100%);
   padding: 20px;
+  font-family: 'BPdots', monospace;
 }
 
 .host-content {
@@ -103,29 +107,32 @@
 }
 
 .host-title {
+  font-family: 'BPdots', monospace;
   font-size: 2.5rem;
-  color: #ff6b35;
+  color: var(--jasmine);
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .game-code-display {
   text-align: center;
-  background: rgba(255, 107, 53, 0.1);
+  background: rgba(42, 157, 143, 0.2);
   padding: 2rem;
   border-radius: 15px;
   margin-bottom: 2rem;
 }
 
 .code-label {
+  font-family: 'BPdots', monospace;
   font-size: 1rem;
-  color: #e8e8e8;
+  color: #ffffff;
   margin-bottom: 0.5rem;
 }
 
 .game-code {
+  font-family: 'BPdots', monospace;
   font-size: 4rem;
-  color: #ff6b35;
+  color: var(--jasmine);
   font-weight: bold;
   letter-spacing: 1rem;
   margin: 1rem 0;
@@ -178,6 +185,7 @@
 }
 
 .player-team {
+  font-family: 'BPdots', monospace;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -185,12 +193,12 @@
 }
 
 .team-team1 {
-  background: #f5576c;
+  background: var(--burnt-peach);
   color: white;
 }
 
 .team-team2 {
-  background: #4facfe;
+  background: var(--verdigris);
   color: white;
 }
 
@@ -200,9 +208,10 @@
 }
 
 .btn-start {
+  font-family: 'BPdots', monospace;
   flex: 1;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -223,6 +232,7 @@
 }
 
 .btn-cancel {
+  font-family: 'BPdots', monospace;
   padding: 1rem 2rem;
   background: rgba(255, 255, 255, 0.1);
   color: #e8e8e8;
@@ -243,8 +253,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, var(--charcoal-blue) 0%, var(--verdigris) 100%);
   padding: 20px;
+  font-family: 'BPdots', monospace;
 }
 
 .join-content {
@@ -258,8 +269,9 @@
 }
 
 .join-title {
+  font-family: 'BPdots', monospace;
   font-size: 2.5rem;
-  color: #4facfe;
+  color: var(--jasmine);
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -289,6 +301,7 @@
   border-radius: 10px;
   color: white;
   font-size: 1.1rem;
+  font-family: 'BPdots', monospace;
   transition: all 0.3s ease;
 }
 
@@ -301,6 +314,7 @@
 .code-input {
   text-align: center;
   font-size: 2rem;
+  font-family: 'BPdots', monospace;
   letter-spacing: 0.5rem;
   text-transform: uppercase;
 }
@@ -311,6 +325,7 @@
 }
 
 .team-button {
+  font-family: 'BPdots', monospace;
   flex: 1;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.1);
@@ -323,13 +338,13 @@
 }
 
 .team-button.active {
-  background: #4facfe;
-  border-color: #4facfe;
+  background: var(--verdigris);
+  border-color: var(--verdigris);
   font-weight: bold;
 }
 
 .team-button:hover:not(:disabled) {
-  background: rgba(79, 172, 254, 0.3);
+  background: rgba(42, 157, 143, 0.3);
 }
 
 .form-actions {
@@ -339,9 +354,10 @@
 }
 
 .btn-join {
+  font-family: 'BPdots', monospace;
   flex: 1;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -381,7 +397,7 @@
   width: 50px;
   height: 50px;
   border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #4facfe;
+  border-top-color: var(--jasmine);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

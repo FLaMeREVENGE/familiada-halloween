@@ -1,11 +1,12 @@
 /* Główny kontener gry */
 .game-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--charcoal-blue) 0%, var(--verdigris) 100%);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'BPdots', monospace;
 }
 
 /* Nagłówek gry */
@@ -16,20 +17,23 @@
 }
 
 .game-header h1 {
+  font-family: 'BPdots', monospace;
   font-size: 2.5rem;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .game-code-badge {
+  font-family: 'BPdots', monospace;
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(233, 196, 106, 0.3);
   padding: 0.5rem 1.5rem;
   border-radius: 25px;
   font-weight: bold;
   font-size: 1.2rem;
   backdrop-filter: blur(10px);
   margin: 0.5rem;
+  color: var(--jasmine);
 }
 
 .game-info {
@@ -40,28 +44,31 @@
 }
 
 .team-badge {
+  font-family: 'BPdots', monospace;
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(42, 157, 143, 0.3);
   padding: 0.5rem 1.5rem;
   border-radius: 25px;
   font-weight: bold;
   backdrop-filter: blur(10px);
+  color: white;
 }
 
 /* Sekcja wyboru kategorii */
 .category-selection {
   width: 100%;
   max-width: 1200px;
-  background: white;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .instruction {
+  font-family: 'BPdots', monospace;
   text-align: center;
   font-size: 1.2rem;
-  color: #555;
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
@@ -75,7 +82,8 @@
 
 /* Karta kategorii */
 .category-card {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'BPdots', monospace;
+  background: linear-gradient(135deg, rgba(42, 157, 143, 0.2) 0%, rgba(38, 70, 83, 0.8) 100%);
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
@@ -83,17 +91,18 @@
   transition: all 0.3s ease;
   border: 3px solid transparent;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
 }
 
 .category-card:hover:not(.readonly) {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  border-color: #667eea;
+  box-shadow: 0 8px 25px rgba(42, 157, 143, 0.4);
+  border-color: var(--jasmine);
 }
 
 .category-card.selected {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--sandy-brown) 100%);
+  border-color: var(--jasmine);
   color: white;
   transform: scale(1.05);
 }
@@ -115,59 +124,66 @@
 }
 
 .category-name {
+  font-family: 'BPdots', monospace;
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--jasmine);
 }
 
 .category-difficulty {
+  font-family: 'BPdots', monospace;
   font-size: 1.1rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 0.5rem;
 }
 
 .category-info {
+  font-family: 'BPdots', monospace;
   font-size: 0.9rem;
-  color: #888;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Informacja o wyborze */
 .selection-info {
-  background: #e8f5e9;
-  border-left: 4px solid #4caf50;
+  font-family: 'BPdots', monospace;
+  background: rgba(42, 157, 143, 0.2);
+  border-left: 4px solid var(--verdigris);
   padding: 1.5rem;
   border-radius: 8px;
   text-align: center;
+  color: white;
 }
 
 .selection-info strong {
-  color: #2e7d32;
+  color: var(--jasmine);
   font-size: 1.2rem;
 }
 
 .waiting-text {
+  font-family: 'BPdots', monospace;
   margin-top: 1rem;
-  color: #666;
-  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Komunikat oczekiwania */
 .waiting-message {
+  font-family: 'BPdots', monospace;
   text-align: center;
   padding: 2rem;
 }
 
 .waiting-message p {
+  font-family: 'BPdots', monospace;
   font-size: 1.2rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   margin-top: 1rem;
 }
 
 /* Spinner */
 .spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #667eea;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid var(--jasmine);
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -194,7 +210,8 @@
 }
 
 .host-question-card {
-  background: white;
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 3rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -202,20 +219,23 @@
 }
 
 .question-text {
+  font-family: 'BPdots', monospace;
   font-size: 2.5rem;
-  color: #333;
+  color: var(--jasmine);
   margin-bottom: 1.5rem;
   font-weight: bold;
 }
 
 .host-instruction {
+  font-family: 'BPdots', monospace;
   font-size: 1.2rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   font-style: italic;
 }
 
 .buzz-status {
-  background: white;
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -245,21 +265,23 @@
 }
 
 .buzzed-info h3 {
+  font-family: 'BPdots', monospace;
   font-size: 1.5rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   margin: 1rem 0;
 }
 
 .team-name-display {
+  font-family: 'BPdots', monospace;
   font-size: 2.5rem;
   font-weight: bold;
-  color: #4caf50;
-  background: #e8f5e9;
+  color: var(--jasmine);
+  background: rgba(42, 157, 143, 0.2);
   padding: 1.5rem 2rem;
   border-radius: 15px;
   display: inline-block;
   margin-top: 1rem;
-  border: 3px solid #4caf50;
+  border: 3px solid var(--verdigris);
 }
 
 .waiting-buzz {
@@ -272,13 +294,15 @@
 }
 
 .waiting-buzz p {
+  font-family: 'BPdots', monospace;
   font-size: 1.3rem;
-  color: #888;
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 1rem;
 }
 
 .btn-reset {
-  background: #ff6b6b;
+  font-family: 'BPdots', monospace;
+  background: var(--burnt-peach);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -312,7 +336,8 @@
 
 /* Przycisk "Przejdź do tablicy" */
 .btn-start-board {
-  background: linear-gradient(135deg, #4CAF50, #45a049);
+  font-family: 'BPdots', monospace;
+  background: linear-gradient(135deg, var(--verdigris), var(--sandy-brown));
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -321,7 +346,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
 }
 
 .btn-start-board:hover {
@@ -345,7 +370,8 @@
 }
 
 .buzz-instruction {
-  background: white;
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -354,25 +380,28 @@
 }
 
 .buzz-instruction h2 {
+  font-family: 'BPdots', monospace;
   font-size: 2rem;
-  color: #333;
+  color: var(--jasmine);
   margin-bottom: 1rem;
 }
 
 .buzz-instruction p {
+  font-family: 'BPdots', monospace;
   font-size: 1.2rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0.5rem 0;
 }
 
 .buzz-hint {
   font-weight: bold;
-  color: #667eea !important;
+  color: var(--sandy-brown) !important;
   font-size: 1.3rem !important;
   margin-top: 1rem !important;
 }
 
 .buzz-button {
+  font-family: 'BPdots', monospace;
   width: 300px;
   height: 300px;
   border-radius: 50%;
@@ -382,7 +411,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #ff4757 0%, #ff6348 100%);
+  background: linear-gradient(135deg, var(--burnt-peach) 0%, var(--sandy-brown) 100%);
   color: white;
   text-transform: uppercase;
 }
@@ -397,14 +426,14 @@
 }
 
 .buzz-button.buzz-first {
-  background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+  background: linear-gradient(135deg, var(--verdigris) 0%, var(--jasmine) 100%);
   animation: celebrate 0.5s ease-in-out;
-  box-shadow: 0 0 60px rgba(0, 255, 0, 0.8);
+  box-shadow: 0 0 60px rgba(42, 157, 143, 0.8);
 }
 
 .buzz-button.buzz-second {
-  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
-  color: #333;
+  background: linear-gradient(135deg, var(--jasmine) 0%, var(--sandy-brown) 100%);
+  color: var(--charcoal-blue);
   cursor: not-allowed;
 }
 
@@ -427,7 +456,8 @@
 }
 
 .buzz-result {
-  background: white;
+  font-family: 'BPdots', monospace;
+  background: rgba(38, 70, 83, 0.95);
   border-radius: 15px;
   padding: 1.5rem 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -435,9 +465,10 @@
 }
 
 .buzz-result p {
+  font-family: 'BPdots', monospace;
   font-size: 1.3rem;
   font-weight: bold;
-  color: #333;
+  color: var(--jasmine);
   margin: 0;
 }
 

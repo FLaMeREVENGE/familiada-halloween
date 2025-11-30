@@ -420,14 +420,22 @@ export default function HostGamePage() {
               <button 
                 className="control-btn btn-transfer" 
                 onClick={() => handleTransferPoints(1)}
-                disabled={gameData?.pointsTransferred}
+                disabled={
+                  gameData?.pointsTransferred || 
+                  !(gameData?.wrongAnswersCount >= 5 || 
+                    gameData?.revealedAnswers?.length === currentQuestion?.answers?.length)
+                }
               >
                 🏆 Przekaż punkty - {gameData?.team1Name || "Drużyna 1"}
               </button>
               <button 
                 className="control-btn btn-transfer" 
                 onClick={() => handleTransferPoints(2)}
-                disabled={gameData?.pointsTransferred}
+                disabled={
+                  gameData?.pointsTransferred || 
+                  !(gameData?.wrongAnswersCount >= 5 || 
+                    gameData?.revealedAnswers?.length === currentQuestion?.answers?.length)
+                }
               >
                 🏆 Przekaż punkty - {gameData?.team2Name || "Drużyna 2"}
               </button>

@@ -24,12 +24,14 @@ export default function RootLayout({ children }) {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Familiada - Gra Familijna Online" />
         <meta property="og:description" content="Zagraj w Familiadę online! Klasyczna teleturniejna gra rodzinna z trybem multiplayer." />
+        <meta property="og:image" content="/og-image.png" />
         <meta property="og:site_name" content="Familiada" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Familiada - Gra Familijna Online" />
         <meta name="twitter:description" content="Zagraj w Familiadę online! Klasyczna teleturniejna gra rodzinna z trybem multiplayer." />
+        <meta name="twitter:image" content="/og-image.png" />
         
         {/* Dodatkowo */}
         <meta name="theme-color" content="#264653" />

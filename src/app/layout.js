@@ -10,6 +10,9 @@ export default function RootLayout({ children }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="e12b5c8ed02b1f3e" />
+        
         {/* Podstawowe SEO */}
         <title>Familiada - Gra Familijna Online | Rozgrywka Multiplayer</title>
         <meta name="description" content="Zagraj w Familiadę online! Klasyczna teleturniejna gra rodzinna z trybem multiplayer. Zgaduj najpopularniejsze odpowiedzi i wygraj!" />

@@ -311,6 +311,26 @@ export default function HostGamePage() {
           </div>
         )}
 
+        {/* Overlay następnego pytania dla prowadzącego */}
+        {gameData?.nextQuestionAlert && (
+          <div className="wrong-answer-overlay next-question">
+            <div className="wrong-answer-content">
+              <PiArrowRightBold className="wrong-answer-icon" />
+              <h2 className="wrong-answer-text">Następne pytanie!</h2>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay wyniku końcowego gry dla prowadzącego */}
+        {gameData?.gameResultAlert && (
+          <div className="wrong-answer-overlay next-question">
+            <div className="wrong-answer-content">
+              <PiFlagCheckeredFill className="wrong-answer-icon" />
+              <h2 className="wrong-answer-text">Przejście do podsumowania!</h2>
+            </div>
+          </div>
+        )}
+
       <div className="game-header">
         <h1 className="header-title">
           {gamePhase === "category-selection" ? "Wybierz zestaw pytań" :

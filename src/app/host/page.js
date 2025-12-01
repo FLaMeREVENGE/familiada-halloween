@@ -99,7 +99,7 @@ export default function HostPage() {
       <Navbar />
       <div className="host-container">
         <div className="host-content">
-          <h1 className="host-title">POCZEKALNIA</h1>
+          <h1 className="host-title">Poczekalnia</h1>
           
           <div className="game-code-display">
             <p className="code-label">Kod gry:</p>

@@ -86,7 +86,7 @@ export default function JoinPage() {
       <Navbar />
       <div className="join-container">
       <div className="join-content">
-        <h1 className="join-title">DOŁĄCZ JAKO DRUŻYNA</h1>
+        <h1 className="join-title">Dołącz jako drużyna</h1>
         
         <form onSubmit={handleJoinGame} className="join-form">
           <div className="form-group">
